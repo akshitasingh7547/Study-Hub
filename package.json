@@ -1,0 +1,47 @@
+{
+  "name": "study-hub-2",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Study Hub 2 - Personal Learning Operating System",
+  "private": true,
+  "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
+    "axios": "^1.4.0",
+    "lucide-react": "^1.23.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.14.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.3",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.24",
+    "react-scripts": "5.0.1",
+    "tailwindcss": "^3.3.0",
+    "vite": "^8.1.3"
+  }
+}

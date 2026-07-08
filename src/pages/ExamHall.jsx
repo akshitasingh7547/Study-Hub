@@ -20,7 +20,9 @@ const ExamHall = () => {
     score: '',
     total: '',
   })
-  const [timerTime, setTimerTime] = React.useState(3600)
+const [timerTime, setTimerTime] = React.useState(3600)
+const [showResult, setShowResult] = React.useState(false)
+const [resultData, setResultData] = React.useState(null)
 
   React.useEffect(() => {
     const saved = localStorage.getItem(storageKey)
@@ -33,6 +35,53 @@ const ExamHall = () => {
     localStorage.setItem(storageKey, JSON.stringify(tests))
     window.dispatchEvent(new Event('studyHubProgressUpdated'))
   }, [tests, hasLoaded])
+
+  const getReward = (score, total) => {
+  const percentage = (score / total) * 100
+
+  if (percentage === 100) {
+    return {
+      title: "🏆 PERFECT SCORE!",
+      points: 100,
+      badge: "🥇 Gold Badge",
+      message: "Outstanding! You aced the exam!"
+    }
+  }
+
+  if (percentage >= 90) {
+    return {
+      title: "🥇 Excellent!",
+      points: 80,
+      badge: "⭐ Excellence",
+      message: "Amazing performance!"
+    }
+  }
+
+  if (percentage >= 80) {
+    return {
+      title: "🥈 Great Work!",
+      points: 60,
+      badge: "👏 Well Done",
+      message: "You're improving consistently!"
+    }
+  }
+
+  if (percentage >= 70) {
+    return {
+      title: "🥉 Nice Progress!",
+      points: 40,
+      badge: "📚 Keep Going",
+      message: "You're on the right track!"
+    }
+  }
+
+  return {
+    title: "💚 Never Give Up!",
+    points: 20,
+    badge: "🔥 Consistency",
+    message: "Every exam makes you stronger."
+  }
+}
 
   const handleAddTest = () => {
     if (newTest.name && newTest.score && newTest.total) {

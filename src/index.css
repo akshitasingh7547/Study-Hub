@@ -40,3 +40,159 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #1a3d34;
 }
+/* ================================
+   HOGWARTS GLOBAL MAGIC ATMOSPHERE
+================================ */
+
+
+/* Clouds */
+.magic-cloud {
+  position: fixed;
+  top: 40px;
+  left: -300px;
+  width: 250px;
+  opacity: 0.25;
+  pointer-events: none;
+  z-index: 40;
+  animation: cloudMove 60s linear infinite;
+}
+
+.magic-cloud:nth-child(2) {
+  top: 150px;
+  animation-duration: 80s;
+  opacity: 0.18;
+}
+
+
+@keyframes cloudMove {
+
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(140vw);
+  }
+
+}
+
+
+/* Rain */
+.magic-rain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 45;
+  opacity: 0.15;
+
+  background-image:
+  linear-gradient(
+    120deg,
+    transparent 45%,
+    #ffffff 50%,
+    transparent 55%
+  );
+
+  background-size: 15px 25px;
+
+  animation: rainFall 0.5s linear infinite;
+}
+
+
+@keyframes rainFall {
+
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 0 100px;
+  }
+
+}
+
+
+/* Candle Glow */
+.candle-glow {
+
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+
+  width: 80px;
+  height: 80px;
+
+  border-radius: 50%;
+
+  background:
+  radial-gradient(
+    circle,
+    rgba(255,220,120,0.8),
+    transparent 70%
+  );
+
+  filter: blur(10px);
+
+  animation: candlePulse 2s infinite;
+
+  pointer-events:none;
+
+  z-index:40;
+
+}
+
+
+@keyframes candlePulse {
+
+  0%,100%{
+    transform:scale(1);
+    opacity:.6;
+  }
+
+  50%{
+    transform:scale(1.3);
+    opacity:1;
+  }
+
+}
+
+
+/* Magical particles */
+
+.magic-sparkle {
+
+ position:fixed;
+
+ width:5px;
+ height:5px;
+
+ background:#d4af37;
+
+ border-radius:50%;
+
+ animation: sparkleFloat 8s infinite;
+
+ pointer-events:none;
+
+ z-index:40;
+
+}
+
+
+@keyframes sparkleFloat {
+
+ from{
+   transform:translateY(100vh);
+   opacity:0;
+ }
+
+ 20%{
+   opacity:1;
+ }
+
+ to{
+   transform:translateY(-100vh);
+   opacity:0;
+ }
+
+}

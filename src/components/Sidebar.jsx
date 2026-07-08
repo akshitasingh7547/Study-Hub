@@ -15,6 +15,7 @@ import {
   Target,
   Moon,
   ChevronLeft,
+  ClipboardList,
   ChevronRight,
   Search,
 } from "lucide-react";
@@ -53,6 +54,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       items: [
         { icon: BookOpen, label: "Subject Index", path: "/subjects" },
         { icon: Clock, label: "Study Hall", path: "/study-hall" },
+        { icon: ClipboardList, label: "Assignment Studio", path: "/assignment-studio" },
         { icon: Target, label: "JEE Prep", path: "/jee-prep" },
         { icon: Trophy, label: "Exam Hall", path: "/exam-hall" },
       ],

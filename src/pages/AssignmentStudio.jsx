@@ -1,78 +1,51 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 function AssignmentStudio() {
 
+  const [deskItems, setDeskItems] = useState([]);
 
-    const [deskItems, setDeskItems] = useState([]);
-  const [task,setTask] = useState("");
-  const [time,setTime] = useState(25 * 60);
-const [running,setRunning] = useState(false);
+  const [selected, setSelected] = useState(null);
 
-    const [selected, setSelected] = useState(null);
-  const [assignment,setAssignment] = useState({
-    name:"",
-    subject:"",
-    deadline:"",
-    priority:"Medium"
-});
-function addTask(){
+  const [task, setTask] = useState("");
 
-    if(!task) return;
+  const [time, setTime] = useState(25 * 60);
+
+  const [running, setRunning] = useState(false);
 
 
-    if(task.toLowerCase() === "research chapter"){
-
-        setDeskItems([
-            ...deskItems,
-            {
-                id:Date.now(),
-                type:"Research Chapter",
-                icon:"☑️",
-                links:true
-            }
-        ]);
-
-    }
-
-    else{
-
-        addItem(
-            task,
-            "☑️"
-        );
-
-    }
+  const [assignment, setAssignment] = useState({
+    name: "",
+    subject: "",
+    deadline: "",
+    priority: "Medium"
+  });
 
 
-    setTask("");
 
-}
-useEffect(()=>{
+  // TIMER
+
+  useEffect(()=>{
 
     let timer;
 
-
     if(running){
 
-        timer = setInterval(()=>{
+      timer = setInterval(()=>{
 
-            setTime(prev=>{
+        setTime(prev=>{
 
-                if(prev <= 1){
+          if(prev <= 1){
 
-                    setRunning(false);
-                    return 0;
+            setRunning(false);
+            return 0;
 
-                }
+          }
 
+          return prev - 1;
 
-                return prev - 1;
+        });
 
-            });
-
-
-        },1000);
-
+      },1000);
 
     }
 
@@ -80,7 +53,10 @@ useEffect(()=>{
     return ()=>clearInterval(timer);
 
 
-},[running]);
+  },[running]);
+
+
+
   function formatTime(){
 
     const minutes = Math.floor(time / 60);
@@ -89,66 +65,122 @@ useEffect(()=>{
 
 
     return `${minutes}:${seconds
-    .toString()
-    .padStart(2,"0")}`;
+      .toString()
+      .padStart(2,"0")}`;
 
-}
+  }
 
-    function addItem(type, icon){
 
-        setDeskItems([
-            ...deskItems,
-            {
-                id:Date.now(),
-                type,
-                icon
-            }
-        ]);
 
-    }
+  // ADD OBJECT TO DESK
+
+  function addItem(name, icon){
+
+    setDeskItems(prev=>[
+      ...prev,
+      {
+        id:Date.now(),
+        name,
+        icon
+      }
+    ]);
+
+  }
+
+
+
+  // ASSIGNMENT
+
   function createAssignment(){
 
     if(!assignment.name) return;
 
 
     addItem(
-        assignment.name,
-        "📚"
+      assignment.name,
+      "📚"
     );
 
 
-}
+  }
 
 
 
-    function removeItem(id){
+  // CHECKLIST
 
-        setDeskItems(
-            deskItems.filter(item=>item.id !== id)
-        );
+  function addTask(){
+
+    if(!task) return;
 
 
-        setSelected(null);
+    if(task.toLowerCase()==="research chapter"){
+
+      setDeskItems(prev=>[
+        ...prev,
+        {
+          id:Date.now(),
+          name:"Research Chapter",
+          icon:"☑️",
+          research:true
+        }
+      ]);
+
+    }
+
+    else{
+
+      addItem(
+        task,
+        "☑️"
+      );
 
     }
 
 
+    setTask("");
 
-    return(
+  }
+
+
+
+  function removeItem(){
+
+    setDeskItems(
+      deskItems.filter(
+        item=>item.id!==selected
+      )
+    );
+
+
+    setSelected(null);
+
+  }
+
+
+
+
+
+return (
 
 <div className="assignment-page">
 
 
 <header className="hero">
 
-<h1>📝 Assignment Studio</h1>
+<h1>
+📝 Assignment Studio
+</h1>
+
 
 <p>
 Your personal workspace for finishing assignments,
 homework, journals, notes, and projects.
 </p>
 
+
 </header>
+
+
 
 
 
@@ -156,17 +188,22 @@ homework, journals, notes, and projects.
 
 
 
+{/* DESK */}
+
+
 <section className="card desk">
 
 
-<h2>📚 Assignment Desk</h2>
+<h2>
+📚 Assignment Desk
+</h2>
+
 
 
 <div className="desk-area">
 
 
 {
-
 deskItems.length===0 ?
 
 <p className="empty">
@@ -205,30 +242,28 @@ onClick={()=>setSelected(item.id)}
 
 
 <p>
-{item.type}
+{item.name}
 </p>
 
 
-{
-item.links &&
 
-<div className="desk-links">
+{
+item.research &&
+
+<div className="links">
 
 
 <a
-href="https://notebooklm.google.com/"
+href="https://notebooklm.google.com"
 target="_blank"
-rel="noopener noreferrer"
 >
 📒 NotebookLM
 </a>
 
 
-
 <a
-href="https://www.google.com"
+href="https://google.com"
 target="_blank"
-rel="noopener noreferrer"
 >
 🌐 Google
 </a>
@@ -237,6 +272,7 @@ rel="noopener noreferrer"
 </div>
 
 }
+
 
 
 </div>
@@ -258,12 +294,22 @@ rel="noopener noreferrer"
 
 
 
+
+
+{/* SIDEBAR */}
+
+
 <aside className="sidebar">
+
 
 
 <div className="card">
 
-<h2>📚 Assignment Info</h2>
+
+<h2>
+📚 Assignment Info
+</h2>
+
 
 
 <input
@@ -272,8 +318,8 @@ placeholder="Assignment Name"
 
 value={assignment.name}
 
-onChange={(e)=>
-setAssignment({
+onChange={
+e=>setAssignment({
 ...assignment,
 name:e.target.value
 })
@@ -289,8 +335,8 @@ placeholder="Subject"
 
 value={assignment.subject}
 
-onChange={(e)=>
-setAssignment({
+onChange={
+e=>setAssignment({
 ...assignment,
 subject:e.target.value
 })
@@ -300,15 +346,14 @@ subject:e.target.value
 
 
 
-
 <input
 
 type="date"
 
 value={assignment.deadline}
 
-onChange={(e)=>
-setAssignment({
+onChange={
+e=>setAssignment({
 ...assignment,
 deadline:e.target.value
 })
@@ -318,13 +363,12 @@ deadline:e.target.value
 
 
 
-
 <select
 
 value={assignment.priority}
 
-onChange={(e)=>
-setAssignment({
+onChange={
+e=>setAssignment({
 ...assignment,
 priority:e.target.value
 })
@@ -332,13 +376,16 @@ priority:e.target.value
 
 >
 
+
 <option>
 High
 </option>
 
+
 <option>
 Medium
 </option>
+
 
 <option>
 Low
@@ -350,126 +397,132 @@ Low
 
 
 <button onClick={createAssignment}>
-
 Create Assignment
-
 </button>
 
 
 </div>
 
-<div className="card">
 
-    <h2>🎵 Music Corner</h2>
-
-    <a 
-        href="https://www.youtube.com"
-        target="_blank"
-        rel="noopener noreferrer"
-    >
-        <button>
-            ▶ Open YouTube
-        </button>
-    </a>
-
-
-    <button onClick={()=>addItem("Music","🎧")}>
-        🎧 Add Music To Desk
-    </button>
-
-</div>
 
 
 
 <div className="card">
 
-<h2>📊 Statistics</h2>
+
+<h2>
+🎵 Music Corner
+</h2>
 
 
-<button onClick={()=>addItem("Progress","📈")}>
-Add Progress
+
+<a
+href="https://youtube.com"
+target="_blank"
+>
+
+<button>
+▶ Open YouTube
+</button>
+
+</a>
+
+
+
+<button
+onClick={()=>addItem("Music","🎧")}
+>
+
+🎧 Add Music
+
 </button>
 
 
+
 </div>
+
+
+
+
+
 <div className="card">
 
-<h2>⏱ Study Timer</h2>
+
+<h2>
+⏱ Study Timer
+</h2>
 
 
-<h1 style={{
-textAlign:"center",
-color:"#064e3b"
-}}>
 
+<h1>
 {formatTime()}
-
 </h1>
 
 
 
 <button onClick={()=>setRunning(true)}>
-
 ▶ Start
-
 </button>
 
 
 
 <button onClick={()=>setRunning(false)}>
-
 ⏸ Pause
-
 </button>
 
 
 
-<button onClick={()=>{
-
+<button
+onClick={()=>{
 setTime(25*60);
 setRunning(false);
-
-}}>
-
+}}
+>
 🔄 Reset
-
 </button>
 
 
 
 </div>
 
+
+
+<div className="card">
+
+
+<h2>
+📋 Checklist
+</h2>
+
+
+
 <input
 
-placeholder="Task name"
+placeholder="Task"
 
 value={task}
 
-onChange={(e)=>setTask(e.target.value)}
+onChange={
+e=>setTask(e.target.value)
+}
 
 />
+
 
 
 <button onClick={addTask}>
 + Add Task
 </button>
 
-<div className="card">
-
-<h2>📋 Checklist</h2>
-
-
-<button onClick={()=>addItem("Task","☑️")}>
-Add Task
-</button>
-
-
 
 </div>
 
 
 
+
+
 </aside>
+
 
 
 </main>
@@ -482,16 +535,16 @@ selected &&
 
 <div className="popup">
 
+
 <h3>
 Selected Item
 </h3>
 
 
 <p>
-
 {
 deskItems.find(
-item=>item.id===selected
+i=>i.id===selected
 )?.icon
 }
 
@@ -499,22 +552,16 @@ item=>item.id===selected
 
 {
 deskItems.find(
-item=>item.id===selected
-)?.type
+i=>i.id===selected
+)?.name
 }
 
 </p>
 
 
 
-<button
-
-onClick={()=>removeItem(selected)}
-
->
-
+<button onClick={removeItem}>
 Remove
-
 </button>
 
 
@@ -523,8 +570,7 @@ Remove
 }
 
 
-
-
+</div>
 <style>{`
 
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins&display=swap');
@@ -535,31 +581,31 @@ box-sizing:border-box;
 }
 
 
-
-
 .assignment-page{
 
 min-height:100vh;
 
 padding:30px;
 
-background:
-radial-gradient(circle,#065f46,#021c16);
-
 font-family:Poppins;
+
+background:
+radial-gradient(circle at top,#065f46,#021c16);
 
 }
 
 
+
+/* HERO */
 
 
 .hero{
 
 padding:40px;
 
-border-radius:25px;
-
 text-align:center;
+
+border-radius:30px;
 
 background:#064e3b;
 
@@ -569,21 +615,24 @@ border:1px solid #d4af37;
 
 margin-bottom:30px;
 
-}
+box-shadow:0 15px 40px #0005;
 
+}
 
 
 .hero h1{
 
 font-family:Cinzel;
 
-color:#d4af37;
-
 font-size:42px;
+
+color:#d4af37;
 
 }
 
 
+
+/* MAIN LAYOUT */
 
 
 .workspace{
@@ -598,63 +647,49 @@ gap:30px;
 
 
 
+/* CARDS */
+
 
 .card{
 
 background:white;
 
-padding:30px;
+padding:25px;
 
 border-radius:25px;
 
 border-top:5px solid #d4af37;
 
-}
+box-shadow:0 15px 35px #0003;
 
+}
 
 
 
 .card h2{
 
-color:#064e3b;
-
 font-family:Cinzel;
 
-}
-
-
-.desk-links{
-
-display:flex;
-
-flex-direction:column;
-
-gap:5px;
-
-margin-top:8px;
-
-font-size:11px;
-
-}
-
-
-.desk-links a{
-
 color:#064e3b;
 
-text-decoration:none;
-
 }
+
+
+
+
+
+/* DESK */
+
 
 .desk-area{
 
-height:550px;
-
-background:#f5f1e6;
-
-border-radius:20px;
+height:560px;
 
 padding:25px;
+
+border-radius:25px;
+
+background:#f5f1e6;
 
 display:flex;
 
@@ -662,24 +697,10 @@ flex-wrap:wrap;
 
 gap:20px;
 
-}
-
-input,
-select{
-
-width:100%;
-
-padding:12px;
-
-margin-top:10px;
-
-border-radius:12px;
-
-border:1px solid #ddd;
-
-font-size:14px;
+align-content:flex-start;
 
 }
+
 
 
 .empty{
@@ -700,25 +721,25 @@ color:#777;
 
 .desk-item{
 
-height:110px;
+height:120px;
 
-width:110px;
+width:120px;
 
 background:white;
 
-border-radius:20px;
+border-radius:25px;
 
 display:flex;
+
+flex-direction:column;
 
 align-items:center;
 
 justify-content:center;
 
-flex-direction:column;
+cursor:pointer;
 
 font-size:35px;
-
-cursor:pointer;
 
 box-shadow:0 8px 20px #0003;
 
@@ -736,6 +757,17 @@ transform:translateY(-8px);
 
 
 
+.desk-item p{
+
+font-size:12px;
+
+text-align:center;
+
+}
+
+
+
+
 
 .selected{
 
@@ -748,12 +780,40 @@ transform:scale(1.08);
 
 
 
-.desk-item p{
 
-font-size:12px;
+/* LINKS */
+
+
+.links{
+
+display:flex;
+
+flex-direction:column;
+
+font-size:11px;
+
+gap:5px;
+
+margin-top:5px;
 
 }
 
+
+
+.links a{
+
+color:#064e3b;
+
+text-decoration:none;
+
+}
+
+
+
+
+
+
+/* SIDEBAR */
 
 
 .sidebar{
@@ -766,6 +826,26 @@ gap:20px;
 
 }
 
+
+
+
+
+input,
+select{
+
+width:100%;
+
+padding:12px;
+
+margin-top:10px;
+
+border-radius:12px;
+
+border:1px solid #ddd;
+
+font-size:14px;
+
+}
 
 
 
@@ -786,11 +866,46 @@ background:#064e3b;
 
 color:white;
 
+font-size:14px;
+
 cursor:pointer;
+
+transition:.3s;
 
 }
 
 
+
+button:hover{
+
+transform:translateY(-3px);
+
+box-shadow:0 8px 20px #0004;
+
+}
+
+
+
+
+
+/* TIMER */
+
+
+.card h1{
+
+text-align:center;
+
+color:#064e3b;
+
+font-family:Cinzel;
+
+}
+
+
+
+
+
+/* POPUP */
 
 
 .popup{
@@ -805,20 +920,45 @@ background:white;
 
 padding:25px;
 
-border-radius:20px;
+border-radius:25px;
 
-box-shadow:0 10px 30px #0005;
+box-shadow:0 15px 40px #0005;
 
 color:#064e3b;
 
-}</style>
+}
 
 
-</div>
 
-    );
+
+
+/* MOBILE */
+
+
+@media(max-width:900px){
+
+
+.workspace{
+
+grid-template-columns:1fr;
 
 }
 
+
+.desk-area{
+
+height:auto;
+
+min-height:500px;
+
+}
+
+
+}
+
+`}</style>
+);
+
+}
 
 export default AssignmentStudio;

@@ -42,6 +42,13 @@ const [timeLeft, setTimeLeft] = useState(
   const [newTodo, setNewTodo] = useState('')
   const [selectedMethod, setSelectedMethod] = useState(studyMethods[0])
   const [hasLoaded, setHasLoaded] = useState(false)
+  const [showSessionModal, setShowSessionModal] = useState(false)
+const [sessionMessage, setSessionMessage] = useState("")
+  const DAILY_GOAL = 5
+  const goalProgress = Math.min(
+  (completedSessions / DAILY_GOAL) * 100,
+  100
+)
 
   useEffect(() => {
     const saved = localStorage.getItem(storageKey)
@@ -59,14 +66,61 @@ const [timeLeft, setTimeLeft] = useState(
   }, [todos, hasLoaded])
 
   useEffect(() => {
-    let interval
-    if (isRunning && timeLeft > 0) {
-      interval = setInterval(() => setTimeLeft((time) => time - 1), 1000)
-    } else if (timeLeft === 0) {
-      setIsRunning(false)
+  let interval
+
+  if (isRunning && timeLeft > 0) {
+    interval = setInterval(() => {
+      setTimeLeft((prev) => prev - 1)
+    }, 1000)
+  }
+
+  if (timeLeft === 0 && isRunning) {
+    setIsRunning(false)
+
+    if (!isBreak) {
+
+      setCompletedSessions((prev) => prev + 1)
+      const nextSessions = completedSessions + 1
+
+if (nextSessions === DAILY_GOAL) {
+
+    setHousePoints(prev => prev + 100)
+
+    setSessionMessage(
+      "🏆 Daily Goal Complete!\nBonus +100 House Points!"
+    )
+
+    setShowSessionModal(true)
+
+}
+      setHousePoints((prev) => prev + 25)
+
+      setIsBreak(true)
+      setTimeLeft(STUDY_MODES[mode].break)
+
+      setSessionMessage("🎉 Focus Session Complete! Time for a well-deserved break.")
+setShowSessionModal(true)
+
+setTimeout(() => {
+  setShowSessionModal(false)
+}, 3000)
+
+    } else {
+
+      setSessionMessage("☕ Break Complete! Ready for another focus session?")
+setShowSessionModal(true)
+
+setTimeout(() => {
+  setShowSessionModal(false)
+}, 3000)
+
     }
-    return () => clearInterval(interval)
-  }, [isRunning, timeLeft])
+
+  }
+
+  return () => clearInterval(interval)
+
+}, [isRunning, timeLeft, isBreak, mode])
 
   const completedCount = todos.filter((todo) => todo.completed).length
   const progress = todos.length ? Math.round((completedCount / todos.length) * 100) : 0
@@ -102,6 +156,46 @@ const [timeLeft, setTimeLeft] = useState(
         <h1 className="text-4xl font-bold text-slytherin-900 mb-2">Study Hall</h1>
         <p className="text-slytherin-600">Timer, study methods, and live progress that updates as you study.</p>
       </div>
+      <div className="bg-gradient-to-r from-slytherin-700 to-slytherin-900 rounded-2xl shadow-lg p-6 text-white mb-8">
+
+  <div className="flex justify-between items-center mb-4">
+
+    <div>
+
+      <h2 className="text-2xl font-bold">
+        🎯 Daily Focus Goal
+      </h2>
+
+      <p className="opacity-80">
+        Complete {DAILY_GOAL} focus sessions today.
+      </p>
+
+    </div>
+
+    <div className="text-right">
+
+      <p className="text-4xl font-bold">
+        {completedSessions}/{DAILY_GOAL}
+      </p>
+
+    </div>
+
+  </div>
+
+  <div className="w-full h-4 bg-white/20 rounded-full overflow-hidden">
+
+    <div
+      className="h-full bg-emerald-300 transition-all duration-700"
+      style={{ width: `${goalProgress}%` }}
+    />
+
+  </div>
+
+  <p className="mt-4">
+    🏆 Reward: +100 Bonus House Points
+  </p>
+
+</div>
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8">
         <div className="bg-gradient-to-br from-slytherin-600 to-slytherin-800 rounded-xl shadow-lg p-8 text-white text-center">
@@ -117,16 +211,24 @@ const [timeLeft, setTimeLeft] = useState(
           </div>
 
           <div className="grid grid-cols-3 gap-3 mb-6">
-          Object.entries(STUDY_MODES).map(([key, value]) => (
+            {Object.entries(STUDY_MODES).map(([key, value]) => (
               <button
-                key={minute}
+                key={key}
                 onClick={() => {
-                  setIsRunning(false)
-                  setTimeLeft(minute * 60)
-                }}
+    setMode(key)
+    setIsRunning(false)
+    setIsBreak(false)
+    setTimeLeft(value.focus)
+}}
                 className="py-2 bg-white bg-opacity-15 rounded-lg hover:bg-opacity-25"
               >
-                {minute}m
+               <div>
+    <p className="font-bold">{value.name}</p>
+
+    <p className="text-sm">
+        {value.focus / 60} / {value.break / 60}
+    </p>
+</div>
               </button>
             ))}
           </div>
@@ -142,7 +244,8 @@ const [timeLeft, setTimeLeft] = useState(
             <button
               onClick={() => {
                 setIsRunning(false)
-                setTimeLeft(1500)
+                setTimeLeft(STUDY_MODES[mode].focus)
+setIsBreak(false)
               }}
               className="flex items-center gap-2 px-6 py-3 bg-white bg-opacity-20 text-white font-bold rounded-lg hover:bg-opacity-30 transition"
             >
@@ -151,6 +254,77 @@ const [timeLeft, setTimeLeft] = useState(
             </button>
           </div>
         </div>
+        <div className="mt-5">
+
+<p className="text-lg font-bold">
+
+{isBreak ? "☕ Break Time" : "📚 Focus Session"}
+
+</p>
+
+<p className="opacity-80">
+
+Mode:
+
+{STUDY_MODES[mode].name}
+
+</p>
+
+</div>
+        <div className="grid grid-cols-2 gap-4 mb-6">
+
+  <div className="bg-slytherin-50 rounded-xl p-4">
+    <p className="text-sm text-slytherin-600">
+      Completed Sessions
+    </p>
+
+    <p className="text-3xl font-bold">
+      {completedSessions}
+    </p>
+  </div>
+
+  <div className="bg-slytherin-50 rounded-xl p-4">
+    <p className="text-sm text-slytherin-600">
+      House Points
+    </p>
+
+    <p className="text-3xl font-bold">
+      🏆 {housePoints}
+    </p>
+  </div>
+
+</div>
+        <div className="bg-white rounded-xl shadow-lg p-8">
+
+<h2 className="text-2xl font-bold mb-6">
+🎵 Study Sound Hub
+</h2>
+
+<div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+{studySounds.map(sound => (
+
+<button
+key={sound.title}
+onClick={() => window.open(sound.url,"_blank")}
+className="bg-slytherin-50 hover:bg-slytherin-600 hover:text-white rounded-xl p-5 transition duration-300"
+>
+
+<div className="text-4xl mb-2">
+{sound.emoji}
+</div>
+
+<p className="font-semibold">
+{sound.title}
+</p>
+
+</button>
+
+))}
+
+</div>
+
+</div>
 
         <div className="xl:col-span-2 bg-white rounded-xl shadow-lg p-8">
           <div className="flex items-start justify-between gap-4 mb-6">
@@ -252,6 +426,35 @@ const [timeLeft, setTimeLeft] = useState(
           </div>
         </div>
       </div>
+    {showSessionModal && (
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 animate-fadeIn">
+
+    <div className="bg-white rounded-2xl shadow-2xl p-8 w-[420px] text-center">
+
+      <h2 className="text-3xl font-bold text-slytherin-700 mb-4">
+        🎉 Study Hall
+      </h2>
+
+      <p className="text-lg text-slytherin-800 mb-6">
+        {sessionMessage}
+      </p>
+
+      <div className="bg-slytherin-100 rounded-xl p-5">
+
+        <p className="text-xl font-bold">
+          🏆 +25 House Points
+        </p>
+
+        <p className="text-slytherin-700 mt-2">
+          Keep your study streak alive!
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+)}
     </div>
   )
 }

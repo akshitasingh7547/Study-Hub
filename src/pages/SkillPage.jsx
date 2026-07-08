@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { CheckCircle2, Plus, Trash2 } from 'lucide-react'
 import { skillAreas } from '../data/studyHubData'
-
+const [projects, setProjects] = useState([])
+const [newProject, setNewProject] = useState("")
 const storageKey = 'studyHub.skills'
 
 const SkillPage = ({ areaTitle }) => {
@@ -17,6 +18,7 @@ const SkillPage = ({ areaTitle }) => {
       const parsed = JSON.parse(saved)
       setProgress(parsed.progress || {})
       setNotes(parsed.notes?.[areaTitle] || [])
+      setProjects(parsed.projects?.[areaTitle] || [])
     }
     setHasLoaded(true)
   }, [areaTitle])
@@ -31,9 +33,13 @@ const SkillPage = ({ areaTitle }) => {
         ...(saved.notes || {}),
         [areaTitle]: notes,
       },
+      projects:{
+    ...(saved.projects || {}),
+    [areaTitle]: projects,
+  }
     }))
     window.dispatchEvent(new Event('studyHubProgressUpdated'))
-  }, [progress, notes, areaTitle, hasLoaded])
+  }, [progress, notes, areaTitle, projects, hasLoaded])
 
   const doneCount = useMemo(() => {
     return area.tracks.filter((track) => progress[`${areaTitle}:${track}`]).length
@@ -55,6 +61,30 @@ const SkillPage = ({ areaTitle }) => {
   const deleteNote = (id) => {
     setNotes(notes.filter((note) => note.id !== id))
   }
+  const addProject = () => {
+
+  if(!newProject.trim()) return
+
+  setProjects([
+    {
+      id:Date.now(),
+      name:newProject.trim(),
+      date:new Date().toISOString().slice(0,10)
+    },
+    ...projects
+  ])
+
+  setNewProject("")
+}
+
+
+const deleteProject = (id)=>{
+
+  setProjects(
+    projects.filter(project=>project.id!==id)
+  )
+
+}
 
   return (
     <div className="p-8 animate-fadeIn">
@@ -101,12 +131,109 @@ const SkillPage = ({ areaTitle }) => {
         </div>
 
         <div className="bg-white rounded-xl shadow-lg p-8">
-          <h2 className="text-2xl font-bold text-slytherin-900 mb-6">Projects</h2>
-          <div className="space-y-3">
-            {area.projects.map((project) => (
-              <div key={project} className="p-3 bg-slytherin-50 rounded-lg text-slytherin-800 font-semibold">
-                {project}
-              </div>
+
+<h2 className="text-2xl font-bold text-slytherin-900 mb-6">
+Projects
+</h2>
+
+
+<div className="flex gap-3 mb-5">
+
+<input
+
+value={newProject}
+
+onChange={(e)=>setNewProject(e.target.value)}
+
+placeholder="Enter project name..."
+
+className="flex-1 px-4 py-2 border rounded-lg"
+
+/>
+
+
+<button
+
+onClick={addProject}
+
+className="px-5 py-2 bg-slytherin-600 text-white rounded-lg font-bold"
+
+>
+
+<Plus size={18}/>
+
+</button>
+
+</div>
+
+
+
+<div className="space-y-3">
+
+
+{
+projects.length===0 ?
+
+<p className="text-slytherin-600">
+No projects yet. Add your coding projects here.
+</p>
+
+
+:
+
+projects.map(project=>(
+
+<div
+
+key={project.id}
+
+className="flex justify-between items-center p-3 bg-slytherin-50 rounded-lg"
+
+>
+
+<div>
+
+<p className="font-bold text-slytherin-900">
+
+💻 {project.name}
+
+</p>
+
+<p className="text-xs text-slytherin-500">
+
+{project.date}
+
+</p>
+
+</div>
+
+
+<button
+
+onClick={()=>deleteProject(project.id)}
+
+className="text-red-500"
+
+>
+
+<Trash2 size={18}/>
+
+</button>
+
+
+</div>
+
+
+))
+
+
+}
+
+
+</div>
+
+
+</div>
             ))}
           </div>
         </div>

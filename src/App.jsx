@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard'
 import SubjectIndex from './pages/SubjectIndex'
 import StudyHall from './pages/StudyHall'
 import ExamHall from './pages/ExamHall'
+import AssignmentStudio from "./pages/AssignmentStudio";
 import Planner from './pages/Planner'
 import CalendarPage from './pages/CalendarPage'
 import Library from './pages/Library'
@@ -59,6 +60,10 @@ function App() {
             <Route path="/subjects" element={<SubjectIndex />} />
             <Route path="/study-hall" element={<StudyHall />} />
             <Route path="/exam-hall" element={<ExamHall />} />
+            <Route
+ path="/assignment-studio"
+ element={<AssignmentStudio />}
+/>
             <Route path="/jee-prep" element={<JeePrep />} />
             <Route path="/calendar" element={<CalendarPage />} />
             <Route path="/planner" element={<Planner />} />

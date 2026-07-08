@@ -1,8 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { CheckCircle2, Plus, Trash2 } from 'lucide-react'
 import { skillAreas } from '../data/studyHubData'
-const [projects, setProjects] = useState([])
-const [newProject, setNewProject] = useState("")
 const storageKey = 'studyHub.skills'
 
 const SkillPage = ({ areaTitle }) => {
@@ -11,6 +9,8 @@ const SkillPage = ({ areaTitle }) => {
   const [notes, setNotes] = useState([])
   const [newNote, setNewNote] = useState('')
   const [hasLoaded, setHasLoaded] = useState(false)
+  const [projects, setProjects] = useState([])
+const [newProject, setNewProject] = useState("")
 
   useEffect(() => {
     const saved = localStorage.getItem(storageKey)
@@ -234,9 +234,6 @@ className="text-red-500"
 
 
 </div>
-            ))}
-          </div>
-        </div>
       </div>
 
       <div className="bg-white rounded-xl shadow-lg p-8 mt-8">

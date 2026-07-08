@@ -145,13 +145,19 @@ const [isTimerRunning, setIsTimerRunning] = React.useState(false)
             <p className="text-5xl font-bold font-mono">{formatTime(timerTime)}</p>
           </div>
           <input
-            type="number"
-            value={timerTime / 60}
-            onChange={(e) => setTimerTime(parseInt(e.target.value) * 60)}
-            placeholder="Minutes"
-            disabled={isTimerRunning}
-            className="w-full px-4 py-2 mb-4 rounded-lg text-slytherin-900 focus:outline-none"
-          />
+  type="number"
+  value={Math.floor(timerTime / 60)}
+  onChange={(e) => {
+    const minutes = Number(e.target.value)
+
+    if(minutes > 0){
+      setTimerTime(minutes * 60)
+    }
+  }}
+  placeholder="Minutes"
+  disabled={isTimerRunning}
+  className="w-full px-4 py-2 mb-4 rounded-lg text-slytherin-900 focus:outline-none"
+/>
           <button 
             onClick={() => setIsTimerRunning(!isTimerRunning)}
             className={`w-full px-6 py-2 font-bold rounded-lg transition ${
@@ -160,7 +166,7 @@ const [isTimerRunning, setIsTimerRunning] = React.useState(false)
                 : 'bg-white text-slytherin-700 hover:bg-opacity-90'
             }`}
           >
-            {isTimerRunning ? 'Stop Timer' : 'Start Timer'}
+            {isTimerRunning ? 'Pause Timer' : 'Start Timer'}
           </button>
 
         </div>

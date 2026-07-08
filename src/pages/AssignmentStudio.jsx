@@ -570,7 +570,6 @@ Remove
 }
 
 
-</div>
 <style>{`
 
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins&display=swap');
@@ -957,6 +956,7 @@ min-height:500px;
 }
 
 `}</style>
+</div>
 );
 
 }

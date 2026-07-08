@@ -11,7 +11,32 @@ const defaultTasks = [
 const storageKey = 'studyHub.studyHall'
 
 const StudyHall = () => {
-  const [timeLeft, setTimeLeft] = useState(1500)
+  const STUDY_MODES = {
+  pomodoro: {
+    name: "🍅 Pomodoro",
+    focus: 25 * 60,
+    break: 5 * 60,
+  },
+  deep: {
+    name: "🧠 Deep Focus",
+    focus: 50 * 60,
+    break: 10 * 60,
+  },
+  quick: {
+    name: "⚡ Quick Revision",
+    focus: 15 * 60,
+    break: 3 * 60,
+  },
+}
+
+const [mode, setMode] = useState("pomodoro")
+const [isBreak, setIsBreak] = useState(false)
+const [completedSessions, setCompletedSessions] = useState(0)
+const [housePoints, setHousePoints] = useState(0)
+
+const [timeLeft, setTimeLeft] = useState(
+  STUDY_MODES.pomodoro.focus
+)
   const [isRunning, setIsRunning] = useState(false)
   const [todos, setTodos] = useState(defaultTasks)
   const [newTodo, setNewTodo] = useState('')
@@ -92,7 +117,7 @@ const StudyHall = () => {
           </div>
 
           <div className="grid grid-cols-3 gap-3 mb-6">
-            {[25, 45, 60].map((minute) => (
+          Object.entries(STUDY_MODES).map(([key, value]) => (
               <button
                 key={minute}
                 onClick={() => {

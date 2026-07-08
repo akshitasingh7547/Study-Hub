@@ -235,3 +235,6 @@ This project is private and intended for personal educational use.
 ---
 
 **Study Hub 2** — Your personal learning operating system. Let's make education efficient! 🎓
+
+THE LINK- https://study-lowgzz60a-akshita76.vercel.app/
+Do visit and rate it. 

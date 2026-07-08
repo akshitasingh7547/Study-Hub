@@ -357,8 +357,6 @@ Create Assignment
 
 
 </div>
-</div>
-
 
 <div className="card">
 

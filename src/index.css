@@ -196,3 +196,9 @@ body {
  }
 
 }
+.magic-rain,
+.magic-cloud,
+.candle-glow,
+.magic-sparkle {
+  pointer-events: none;
+}

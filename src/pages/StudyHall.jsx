@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { Play, Pause, RotateCcw, CheckCircle2, Trash2, Timer, BookOpen, Sparkles } from 'lucide-react'
-import { studyMethods } from '../data/learningDatabase'
+import { studyMethods} from '../data/learningDatabase'
+import { studySounds } from './data/studySounds'
 
 const defaultTasks = [
   { id: 1, text: 'Review Physics formulas', completed: false },

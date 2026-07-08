@@ -23,6 +23,7 @@ const ExamHall = () => {
 const [timerTime, setTimerTime] = React.useState(3600)
 const [showResult, setShowResult] = React.useState(false)
 const [resultData, setResultData] = React.useState(null)
+const [isTimerRunning, setIsTimerRunning] = React.useState(false)
 
   React.useEffect(() => {
     const saved = localStorage.getItem(storageKey)
@@ -35,6 +36,23 @@ const [resultData, setResultData] = React.useState(null)
     localStorage.setItem(storageKey, JSON.stringify(tests))
     window.dispatchEvent(new Event('studyHubProgressUpdated'))
   }, [tests, hasLoaded])
+
+  React.useEffect(() => {
+    if (!isTimerRunning || timerTime <= 0) return
+
+    const interval = setInterval(() => {
+      setTimerTime(prev => {
+        if (prev <= 1) {
+          setIsTimerRunning(false)
+          alert('⏰ Time is up!')
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
+
+    return () => clearInterval(interval)
+  }, [isTimerRunning, timerTime])
 
   const getReward = (score, total) => {
   const percentage = (score / total) * 100
@@ -131,11 +149,20 @@ const [resultData, setResultData] = React.useState(null)
             value={timerTime / 60}
             onChange={(e) => setTimerTime(parseInt(e.target.value) * 60)}
             placeholder="Minutes"
+            disabled={isTimerRunning}
             className="w-full px-4 py-2 mb-4 rounded-lg text-slytherin-900 focus:outline-none"
           />
-          <button className="w-full px-6 py-2 bg-white text-slytherin-700 font-bold rounded-lg hover:bg-opacity-90 transition">
-            Start Timer
+          <button 
+            onClick={() => setIsTimerRunning(!isTimerRunning)}
+            className={`w-full px-6 py-2 font-bold rounded-lg transition ${
+              isTimerRunning 
+                ? 'bg-red-500 text-white hover:bg-red-600' 
+                : 'bg-white text-slytherin-700 hover:bg-opacity-90'
+            }`}
+          >
+            {isTimerRunning ? 'Stop Timer' : 'Start Timer'}
           </button>
+
         </div>
 
         <div className="lg:col-span-2 bg-white rounded-xl shadow-lg p-8">

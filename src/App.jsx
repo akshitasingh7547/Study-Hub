@@ -21,7 +21,7 @@ import Achievements from './pages/Achievements'
 import ZodiacPage from './pages/ZodiacPage'
 import Auth from './pages/Auth'
 import UserMenu from './components/UserMenu'
-import Atmosphere from './components/Atmosphere'
+import Atmosphere from './Atmosphere'
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true)

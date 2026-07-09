@@ -1,5 +1,5 @@
 import React from 'react'
-import cloud from './pages/data/public/41e6100f6d397633827752a4a870a2a3.jpg'
+import cloud from './pages/data/public/images.jpg'
 
 export default function Atmosphere() {
   return (

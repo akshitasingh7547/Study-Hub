@@ -11,7 +11,7 @@ const PlannerSidebar = () => {
   ];
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-6">
+    <div className="bg-white rounded-2xl shadow-lg p-6">
 
       <h2 className="text-2xl font-bold text-slytherin-800 mb-2">
         📚 Planner Library

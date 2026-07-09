@@ -48,24 +48,38 @@ body {
 
 
 /* Clouds */
+/* Base Cloud Style */
 .magic-cloud {
   position: fixed;
-  top: 40px;
-  left: -300px;
-  width: 250px;
-  opacity: 0.25;
   pointer-events: none;
-  z-index: 40;
-  animation: cloudMove 100s linear infinite;
+  z-index: 5;
+  animation: cloudMove linear infinite;
+  user-select: none;
+  filter: blur(1px);
 }
-
-.magic-cloud:nth-child(2) {
-  top: 150px;
-  animation-duration: 80s;
+.cloud1 {
+  left: -300px;
+  top: 40px;
+  width: 260px;
   opacity: 0.18;
+  animation-duration: 100s;
 }
 
+.cloud2 {
+  left: -600px;
+  top: 170px;
+  width: 220px;
+  opacity: 0.12;
+  animation-duration: 140s;
+}
 
+.cloud3 {
+  left: -900px;
+  top: 320px;
+  width: 320px;
+  opacity: 0.15;
+  animation-duration: 180s;
+}
 @keyframes cloudMove {
 
   from {
@@ -78,13 +92,14 @@ body {
 
 }
 
-.magic-star{
-    position:fixed;
-    width:2px;
-    height:2px;
-    background:white;
-    border-radius:50%;
-    animation:twinkle 4s infinite;
+.magic-star {
+  position: fixed;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 4s infinite;
+  z-index: 1;
 }
 
 @keyframes twinkle{
@@ -168,8 +183,15 @@ body {
   z-index: 0;
 }
 @keyframes moonGlow {
-  0%,100% { transform: scale(1); opacity:.65; }
-  50% { transform: scale(1.05); opacity:.9; }
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.25;
+  }
+
+  50% {
+    transform: scale(1.03);
+    opacity: 0.35;
+  }
 }
 
 .magic-fog{
@@ -198,22 +220,13 @@ body {
 /* Magical particles */
 
 .magic-sparkle {
-
- position:fixed;
-
- width:5px;
- height:5px;
-
- background:#d4af37;
-
- border-radius:50%;
-
- animation: sparkleFloat 8s infinite;
-
- pointer-events:none;
-
- z-index:40;
-
+  position: fixed;
+  width: 5px;
+  height: 5px;
+  background: #d4af37;
+  border-radius: 50%;
+  animation: sparkleFloat 8s infinite;
+  z-index: 10;
 }
 
 

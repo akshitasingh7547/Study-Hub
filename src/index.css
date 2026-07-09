@@ -139,21 +139,34 @@ body {
 }
 .magic-moon {
   position: fixed;
-  top: 40px;
-  right: 40px;
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #fff7d6 0%, #f5deb3 45%, rgba(255,255,255,0.1) 100%);
-  box-shadow:
-    0 0 40px rgba(255,240,180,.5),
-    0 0 100px rgba(255,240,180,.25);
-  opacity: .7;
-  animation: moonGlow 5s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 1;
-}
+  top: -60px;
+  right: -60px;
 
+  width: 200px;
+  height: 200px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    #fffdf2 0%,
+    #f8e7b5 45%,
+    rgba(255,255,255,0.08) 100%
+  );
+
+  box-shadow:
+    0 0 60px rgba(255,240,180,.35),
+    0 0 140px rgba(255,240,180,.18);
+
+  opacity: .28;
+
+  filter: blur(.5px);
+
+  animation: moonGlow 8s ease-in-out infinite;
+
+  pointer-events: none;
+  z-index: 0;
+}
 @keyframes moonGlow {
   0%,100% { transform: scale(1); opacity:.65; }
   50% { transform: scale(1.05); opacity:.9; }

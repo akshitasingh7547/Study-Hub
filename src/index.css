@@ -14,9 +14,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f0f9f7;
+  background:
+    radial-gradient(circle at top,#2e6a5d 0%,transparent 40%),
+    radial-gradient(circle at bottom,#143328 0%,transparent 35%),
+    linear-gradient(180deg,#10231d,#0a1512);
 }
-
 /* Smooth transitions */
 * {
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
@@ -54,7 +56,7 @@ body {
   opacity: 0.25;
   pointer-events: none;
   z-index: 40;
-  animation: cloudMove 60s linear infinite;
+  animation: cloudMove 100s linear infinite;
 }
 
 .magic-cloud:nth-child(2) {
@@ -76,42 +78,19 @@ body {
 
 }
 
-
-/* Rain */
-.magic-rain {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 45;
-  opacity: 0.15;
-
-  background-image:
-  linear-gradient(
-    120deg,
-    transparent 45%,
-    #ffffff 50%,
-    transparent 55%
-  );
-
-  background-size: 15px 25px;
-
-  animation: rainFall 0.5s linear infinite;
+.magic-star{
+    position:fixed;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    animation:twinkle 4s infinite;
 }
 
-
-@keyframes rainFall {
-
-  from {
-    background-position: 0 0;
-  }
-
-  to {
-    background-position: 0 100px;
-  }
-
+@keyframes twinkle{
+    0%,100%{opacity:.2;}
+    50%{opacity:1;}
 }
-
-
 /* Candle Glow */
 .candle-glow {
 
@@ -130,6 +109,9 @@ body {
     rgba(255,220,120,0.8),
     transparent 70%
   );
+  box-shadow:
+0 0 40px rgba(255,210,100,.6),
+0 0 90px rgba(255,180,70,.3);
 
   filter: blur(10px);
 
@@ -154,6 +136,49 @@ body {
     opacity:1;
   }
 
+}
+.magic-moon {
+  position: fixed;
+  top: 40px;
+  right: 40px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff7d6 0%, #f5deb3 45%, rgba(255,255,255,0.1) 100%);
+  box-shadow:
+    0 0 40px rgba(255,240,180,.5),
+    0 0 100px rgba(255,240,180,.25);
+  opacity: .7;
+  animation: moonGlow 5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes moonGlow {
+  0%,100% { transform: scale(1); opacity:.65; }
+  50% { transform: scale(1.05); opacity:.9; }
+}
+
+.magic-fog{
+  position:fixed;
+  left:0;
+  bottom:0;
+  width:100%;
+  height:220px;
+  background:linear-gradient(
+      to top,
+      rgba(255,255,255,.08),
+      transparent
+  );
+  filter:blur(20px);
+  animation:fogMove 12s ease-in-out infinite alternate;
+  pointer-events:none;
+  z-index:0;
+}
+
+@keyframes fogMove{
+  from{transform:translateX(-30px);}
+  to{transform:translateX(30px);}
 }
 
 
@@ -196,9 +221,11 @@ body {
  }
 
 }
-.magic-rain,
 .magic-cloud,
+.magic-moon,
+.magic-fog,
 .candle-glow,
-.magic-sparkle {
+.magic-sparkle,
+.magic-star {
   pointer-events: none;
 }

@@ -97,7 +97,7 @@ const PlannerBoard = () => {
 
   return (
     <div className="overflow-x-auto">
-      <div className="bg-white rounded-2xl shadow-lg p-6 h-[calc(100vh-120px)] overflow-y-auto">
+      <div className="overflow-y-auto">
       <div className="grid grid-cols-7 gap-5 min-w-[1700px]">
         {days.map((day) => (
           <div key={day} className="bg-white rounded-2xl shadow-lg overflow-hidden">

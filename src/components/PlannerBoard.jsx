@@ -97,7 +97,6 @@ const PlannerBoard = () => {
 
   return (
     <div className="overflow-x-auto">
-      <div className="overflow-y-auto">
       <div className="grid grid-cols-7 gap-5 min-w-[1700px]">
         {days.map((day) => (
           <div key={day} className="bg-white rounded-2xl shadow-lg overflow-hidden">
@@ -116,7 +115,7 @@ const PlannerBoard = () => {
                     className="border-2 border-dashed border-slate-300 rounded-xl p-3 min-h-[170px] bg-slate-50"
                   >
                     <div className="font-bold text-slytherin-700 mb-3">{session.title}</div>
-
+                    <div className="overflow-y-auto"></div>
                     <div className="rounded-lg border border-slate-200 bg-white min-h-[110px] p-2 space-y-2">
                       {cards.length === 0 ? (
                         <div className="h-[92px] flex items-center justify-center text-slate-400 text-sm">
@@ -151,7 +150,6 @@ const PlannerBoard = () => {
         ))}
       </div>
     </div>
-      </div>
   );
 };
 

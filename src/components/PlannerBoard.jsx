@@ -104,7 +104,7 @@ const PlannerBoard = () => {
             <div className="bg-slytherin-700 text-white py-4 text-center">
               <h2 className="text-xl font-bold">{day}</h2>
             </div>
-
+            </div>
             <div className="p-4 space-y-5">
               {sessions.map((session) => {
                 const cards = board[day]?.[session.id] || [];

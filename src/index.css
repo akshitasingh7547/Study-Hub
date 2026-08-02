@@ -107,3 +107,23 @@ h1, h2, h3 { font-family: 'Cinzel', serif; letter-spacing: 0.6px }
 
 /* reduce sheen on gold badges */
 .badge-gold { background: linear-gradient(180deg, rgba(179,139,47,0.95), rgba(140,100,30,0.95)); color:#070707; }
+
+/* ====== Atmosphere overrides (disable large clouds and keep subtle elements behind content) ====== */
+/* Hide large decorative cloud images entirely */
+.magic-cloud { display: none !important; }
+
+/* Keep fog/moon/stars subtle and behind main content */
+.magic-fog, .magic-moon, .magic-star, .magic-sparkle, .candle-glow { z-index: 0 !important; opacity: 0.9; }
+
+/* Ensure main content renders above atmosphere decorations */
+main, #root, .app-root { position: relative; z-index: 10; }
+
+/* Fallback: force cloud classes to not overlap */
+.cloud1, .cloud2, .cloud3 { display: none !important; }
+
+/* Minor touch: reduce glow and fog intensity */
+.magic-fog { opacity: 0.35 !important; filter: blur(12px) !important; }
+.candle-glow { opacity: 0.6 !important; }
+
+/* Accessibility: make sure interactive elements still visible */
+button:focus, a:focus { outline: 2px solid rgba(179,139,47,0.18); outline-offset: 2px; }

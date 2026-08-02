@@ -1,6 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root{
+  --bg-0: #030303; /* near-black page background */
+  --bg-1: #070707; /* card background */
+  --card-border: rgba(255,255,255,0.03);
+  --slytherin-accent: #4f7058; /* muted deep green */
+  --slytherin-muted: #6f8f77; /* softer green for text */
+  --antique-gold: #b38b2f; /* toned-down gold */
+  --muted-gray: #94a3b8;
+}
 
 * {
   margin: 0;
@@ -14,14 +25,26 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background:
-    radial-gradient(circle at top,#2e6a5d 0%,transparent 40%),
-    radial-gradient(circle at bottom,#143328 0%,transparent 35%),
-    linear-gradient(180deg,#10231d,#0a1512);
+  background: linear-gradient(180deg, var(--bg-0) 0%, #050505 100%);
+  color: #e6eef0;
 }
+
+/* Cinzel headings for Tom Riddle vibe */
+h1, h2, h3 { font-family: 'Cinzel', serif; letter-spacing: 0.6px }
+
+/* Subtle dropcap */
+.dropcap::first-letter {
+  font-family: 'Cinzel', serif;
+  font-size: 2.6rem;
+  float: left;
+  line-height: 0.85;
+  margin-right: 0.35rem;
+  color: var(--antique-gold);
+}
+
 /* Smooth transitions */
 * {
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
 }
 
 /* Custom scrollbar */
@@ -31,227 +54,56 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #e0f2f0;
+  background: #050505;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2d5f56;
+  background: #1f1f1f;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #1a3d34;
+  background: #2f2f2f;
 }
-/* ================================
-   HOGWARTS GLOBAL MAGIC ATMOSPHERE
-================================ */
 
+/* Slytherin / Tom Riddle accents - toned down to avoid bright light greens */
+.bg-slytherin-50 { background-color: var(--bg-0); }
+.text-slytherin-900 { color: var(--slytherin-accent); }
+.text-slytherin-700 { color: var(--slytherin-muted); }
+.text-slytherin-600 { color: var(--muted-gray); }
 
-/* Clouds */
-/* Base Cloud Style */
-.magic-cloud {
+/* Small heading ornament */
+.heading-ornament {
+  letter-spacing: 0.18em;
+  color: var(--antique-gold);
+}
+
+/* Make cards deep black with subtle borders */
+.card-dark { background: rgba(8,8,8,0.75); border: 1px solid var(--card-border); }
+
+/* Reduce brightness of highlighted elements */
+.bg-emerald-400, .text-emerald-400 { background-color: var(--slytherin-accent); color: #07120a !important; }
+
+/* Buttons: muted gold for call-to-action */
+.btn-cta { background: var(--antique-gold); color: #060606; }
+.btn-muted { background: rgba(255,255,255,0.03); color: var(--muted-gray); }
+
+/* Remove prominent cloud-like radial; use subtle vignette */
+.app-vignette::before{
+  content: '';
   position: fixed;
+  inset: 0;
   pointer-events: none;
-  z-index: 5;
-  animation: cloudMove linear infinite;
-  user-select: none;
-  filter: blur(1px);
-}
-.cloud1 {
-  left: -300px;
-  top: 40px;
-  width: 260px;
-  opacity: 0.18;
-  animation-duration: 100s;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.18) 70%);
+  mix-blend-mode: multiply;
 }
 
-.cloud2 {
-  left: -600px;
-  top: 170px;
-  width: 220px;
-  opacity: 0.12;
-  animation-duration: 140s;
-}
+/* Utility tweaks for contrast */
+.bg-gray-900\/60 { background-color: rgba(12,12,12,0.65); }
+.bg-gray-800\/30 { background-color: rgba(22,22,22,0.30); }
 
-.cloud3 {
-  left: -900px;
-  top: 320px;
-  width: 320px;
-  opacity: 0.15;
-  animation-duration: 180s;
-}
-@keyframes cloudMove {
+/* Slightly darker sidebar when collapsed */
+.sidebar-collapsed { background: #070707 !important; }
 
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(140vw);
-  }
-
-}
-
-.magic-star {
-  position: fixed;
-  width: 2px;
-  height: 2px;
-  background: white;
-  border-radius: 50%;
-  animation: twinkle 4s infinite;
-  z-index: 1;
-}
-
-@keyframes twinkle{
-    0%,100%{opacity:.2;}
-    50%{opacity:1;}
-}
-/* Candle Glow */
-.candle-glow {
-
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-
-  width: 80px;
-  height: 80px;
-
-  border-radius: 50%;
-
-  background:
-  radial-gradient(
-    circle,
-    rgba(255,220,120,0.8),
-    transparent 70%
-  );
-  box-shadow:
-0 0 40px rgba(255,210,100,.6),
-0 0 90px rgba(255,180,70,.3);
-
-  filter: blur(10px);
-
-  animation: candlePulse 2s infinite;
-
-  pointer-events:none;
-
-  z-index:40;
-
-}
-
-
-@keyframes candlePulse {
-
-  0%,100%{
-    transform:scale(1);
-    opacity:.6;
-  }
-
-  50%{
-    transform:scale(1.3);
-    opacity:1;
-  }
-
-}
-.magic-moon {
-  position: fixed;
-  top: -60px;
-  right: -60px;
-
-  width: 200px;
-  height: 200px;
-
-  border-radius: 50%;
-
-  background: radial-gradient(
-    circle,
-    #fffdf2 0%,
-    #f8e7b5 45%,
-    rgba(255,255,255,0.08) 100%
-  );
-
-  box-shadow:
-    0 0 60px rgba(255,240,180,.35),
-    0 0 140px rgba(255,240,180,.18);
-
-  opacity: .28;
-
-  filter: blur(.5px);
-
-  animation: moonGlow 8s ease-in-out infinite;
-
-  pointer-events: none;
-  z-index: 0;
-}
-@keyframes moonGlow {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.25;
-  }
-
-  50% {
-    transform: scale(1.03);
-    opacity: 0.35;
-  }
-}
-
-.magic-fog{
-  position:fixed;
-  left:0;
-  bottom:0;
-  width:100%;
-  height:220px;
-  background:linear-gradient(
-      to top,
-      rgba(255,255,255,.08),
-      transparent
-  );
-  filter:blur(20px);
-  animation:fogMove 12s ease-in-out infinite alternate;
-  pointer-events:none;
-  z-index:0;
-}
-
-@keyframes fogMove{
-  from{transform:translateX(-30px);}
-  to{transform:translateX(30px);}
-}
-
-
-/* Magical particles */
-
-.magic-sparkle {
-  position: fixed;
-  width: 5px;
-  height: 5px;
-  background: #d4af37;
-  border-radius: 50%;
-  animation: sparkleFloat 8s infinite;
-  z-index: 10;
-}
-
-
-@keyframes sparkleFloat {
-
- from{
-   transform:translateY(100vh);
-   opacity:0;
- }
-
- 20%{
-   opacity:1;
- }
-
- to{
-   transform:translateY(-100vh);
-   opacity:0;
- }
-
-}
-.magic-cloud,
-.magic-moon,
-.magic-fog,
-.candle-glow,
-.magic-sparkle,
-.magic-star {
-  pointer-events: none;
-}
+/* reduce sheen on gold badges */
+.badge-gold { background: linear-gradient(180deg, rgba(179,139,47,0.95), rgba(140,100,30,0.95)); color:#070707; }

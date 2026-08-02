@@ -18,10 +18,13 @@ import SkillPage from './pages/SkillPage'
 import SkillsTracker from './pages/SkillsTracker'
 import JeePrep from './pages/JeePrep'
 import Achievements from './pages/Achievements'
-import ZodiacPage from './pages/ZodiacPage'
+// Zodiac removed per request
 import Auth from './pages/Auth'
 import UserMenu from './components/UserMenu'
 import Atmosphere from './Atmosphere'
+import Rewards from './pages/Rewards'
+import WeeklyTasks from './pages/WeeklyTasks'
+import YouTubeChannel from './pages/YouTubeChannel'
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -81,7 +84,9 @@ return (
           <Route path="/skills" element={<SkillsTracker />} />
           <Route path="/stock-market" element={<StockMarket />} />
           <Route path="/achievements" element={<Achievements />} />
-          <Route path="/zodiac" element={<ZodiacPage />} />
+          <Route path="/rewards" element={<Rewards />} />
+          <Route path="/weekly-tasks" element={<WeeklyTasks />} />
+          <Route path="/youtube" element={<YouTubeChannel />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>

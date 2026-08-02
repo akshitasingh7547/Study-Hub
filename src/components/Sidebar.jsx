@@ -5,7 +5,6 @@ import {
   BookOpen,
   Clock,
   Calendar,
-  Brain,
   Library,
   GraduationCap,
   Briefcase,
@@ -43,7 +42,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     {
       title: "MAIN",
       items: [
-        { icon: LayoutDashboard, label: "Dashboard", path: "/" },
+        { icon: LayoutDashboard, label: "Command Center", path: "/" },
         { icon: Calendar, label: "Calendar", path: "/calendar" },
         { icon: Calendar, label: "Weekly Planner", path: "/planner" },
       ],
@@ -92,10 +91,10 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
         {isOpen && (
           <div>
             <h1 className="text-xl font-bold text-emerald-400">
-              Study Hub 2
+              Study Hub
             </h1>
             <p className="text-xs text-slate-400">
-              Learning Operating System
+              Monthly Command Center
             </p>
           </div>
         )}
@@ -183,8 +182,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
             </div>
 
             <div className="text-center text-xs text-slate-500">
-              <p className="font-semibold">Study Hub 2</p>
-              <p>Version 2.1</p>
+              <p className="font-semibold">Study Hub</p>
+              <p>Built for self-study</p>
               <p>Made by Akshita Singh</p>
             </div>
           </>

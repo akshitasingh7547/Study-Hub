@@ -129,7 +129,7 @@ const [isTimerRunning, setIsTimerRunning] = React.useState(false)
   const categories = ['Practice Test', 'Class Test', 'Term Exam', 'Mock Exam']
 
   return (
-    <div className="p-8 animate-fadeIn">
+    <div className="p-8 animate-fadeIn page-exam-hall">
       <div className="mb-8">
         <h1 className="text-4xl font-bold text-slytherin-900 mb-2">Exam Hall 🏆</h1>
         <p className="text-slytherin-600">Track your test scores and practice exams</p>

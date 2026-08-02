@@ -12,11 +12,11 @@ import {
   Trophy,
   BarChart3,
   Target,
-  Moon,
   ChevronLeft,
   ClipboardList,
   ChevronRight,
   Search,
+  PenLine,
 } from "lucide-react";
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
@@ -67,6 +67,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
         { icon: Library, label: "Library", path: "/library" },
         { icon: GraduationCap, label: "Free Courses", path: "/free-courses" },
         { icon: Briefcase, label: "Career Vault", path: "/career" },
+        { icon: PenLine, label: "YouTube Channel", path: "/youtube" },
       ],
     },
 
@@ -75,7 +76,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       items: [
         { icon: Trophy, label: "Achievements", path: "/achievements" },
         { icon: BarChart3, label: "Analytics", path: "/analytics" },
-        { icon: Moon, label: "Zodiac Vault", path: "/zodiac" },
+        { icon: Award, label: "Rewards", path: "/rewards" },
+        { icon: ClipboardList, label: "Weekly Tasks", path: "/weekly-tasks" },
       ],
     },
   ];
@@ -90,19 +92,12 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       <div className="flex items-center justify-between border-b border-slate-700 p-5">
         {isOpen && (
           <div>
-            <h1 className="text-xl font-bold text-emerald-400">
-              Study Hub
-            </h1>
-            <p className="text-xs text-slate-400">
-              Monthly Command Center
-            </p>
+            <h1 className="text-xl font-bold text-emerald-400">Study Hub</h1>
+            <p className="text-xs text-slate-400">Monthly Command Center</p>
           </div>
         )}
 
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="p-2 rounded-lg hover:bg-slate-700 transition"
-        >
+        <button onClick={() => setIsOpen(!isOpen)} className="p-2 rounded-lg hover:bg-slate-700 transition">
           {isOpen ? <ChevronLeft /> : <ChevronRight />}
         </button>
       </div>
@@ -112,26 +107,16 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
         <div className="p-4">
           <div className="flex items-center bg-slate-800 rounded-lg px-3 py-2">
             <Search size={16} className="text-slate-400" />
-            <input
-              type="text"
-              placeholder="Search..."
-              className="ml-2 bg-transparent outline-none text-sm flex-1 placeholder:text-slate-500"
-            />
+            <input type="text" placeholder="Search..." className="ml-2 bg-transparent outline-none text-sm flex-1 placeholder:text-slate-500" />
           </div>
         </div>
       )}
 
       {/* Navigation */}
       <div className="overflow-y-auto h-[calc(100vh-240px)] px-3">
-
         {sections.map((section) => (
           <div key={section.title} className="mb-6">
-
-            {isOpen && (
-              <h3 className="text-xs uppercase tracking-wider text-slate-500 mb-2 px-3">
-                {section.title}
-              </h3>
-            )}
+            {isOpen && <h3 className="text-xs uppercase tracking-wider text-slate-500 mb-2 px-3">{section.title}</h3>}
 
             {section.items.map((item) => (
               <NavLink
@@ -139,46 +124,31 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                 to={item.path}
                 className={({ isActive }) =>
                   `flex items-center gap-4 px-4 py-3 rounded-xl mb-2 transition-all ${
-                    isActive
-                      ? "bg-emerald-600 text-white"
-                      : "hover:bg-slate-800 text-slate-300"
+                    isActive ? "bg-emerald-600 text-white" : "hover:bg-slate-800 text-slate-300"
                   }`
                 }
               >
                 <item.icon size={20} />
 
-                {isOpen && (
-                  <span className="text-sm font-medium">
-                    {item.label}
-                  </span>
-                )}
+                {isOpen && <span className="text-sm font-medium">{item.label}</span>}
               </NavLink>
             ))}
           </div>
         ))}
-
       </div>
 
       {/* Footer */}
       <div className="absolute bottom-0 left-0 w-full border-t border-slate-700 p-4">
-
         {isOpen && (
           <>
             <div className="mb-4">
-              <p className="text-xs text-slate-400 mb-1">
-                Today's Progress
-              </p>
+              <p className="text-xs text-slate-400 mb-1">Today's Progress</p>
 
               <div className="w-full h-2 bg-slate-700 rounded-full">
-                <div
-                  className="h-2 rounded-full bg-emerald-400"
-                  style={{ width: `${studyProgress}%` }}
-                ></div>
+                <div className="h-2 rounded-full bg-emerald-400" style={{ width: `${studyProgress}%` }}></div>
               </div>
 
-              <p className="text-xs mt-2 text-slate-400">
-                {studyProgress}% Study Hall progress
-              </p>
+              <p className="text-xs mt-2 text-slate-400">{studyProgress}% Study Hall progress</p>
             </div>
 
             <div className="text-center text-xs text-slate-500">
@@ -188,7 +158,6 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
             </div>
           </>
         )}
-
       </div>
     </aside>
   );

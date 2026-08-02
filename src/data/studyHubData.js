@@ -12,6 +12,7 @@ export const timetableBlocks = [
   'Share Market',
   'Writing Skills',
   'English Fluency',
+  'YouTube Studio',
   'JEE (P)',
   'JEE (C)',
   'JEE (M)',
@@ -31,6 +32,7 @@ export const plannerItems = [
   { id: 'jee-c', title: 'JEE (C)', category: 'JEE', icon: 'C', color: 'bg-fuchsia-600' },
   { id: 'jee-m', title: 'JEE (M)', category: 'JEE', icon: 'M', color: 'bg-amber-600' },
   { id: 'coding', title: 'Coding', category: 'Skill', icon: 'CODE', color: 'bg-sky-600' },
+  { id: 'youtube-studio', title: 'YouTube Studio', category: 'Skill', icon: 'VIDEO', color: 'bg-red-600' },
   { id: 'future-profession', title: 'Future Profession', category: 'Skill', icon: 'JOB', color: 'bg-teal-600' },
   { id: 'share-market', title: 'Share Market', category: 'Skill', icon: 'FIN', color: 'bg-lime-700' },
   { id: 'writing-skills', title: 'Writing Skills', category: 'Skill', icon: 'WRITE', color: 'bg-rose-600' },
@@ -45,6 +47,15 @@ export const skillAreas = [
     description: 'HTML, CSS, JavaScript, Python, C++, SQL, React, projects, and certificates.',
     tracks: ['HTML', 'CSS', 'JavaScript', 'Python', 'C++', 'SQL', 'React', 'GitHub'],
     projects: ['Portfolio website', 'Study timer', 'Marks tracker', 'Quiz app', 'JEE formula app'],
+    lectures: ['CS50P or Python basics', 'Automate the Boring Stuff', 'SQL practice set', 'React project build', 'GitHub portfolio cleanup'],
+  },
+  {
+    title: 'YouTube Automation Studio',
+    route: '/youtube',
+    description: 'Plan Python-powered videos, learn automation, build Shorts tools, and review channel analytics.',
+    tracks: ['Python basics', 'Automation', 'Web scraping', 'APIs', 'MoviePy', 'FFmpeg', 'OpenCV', 'Script writing', 'Shorts workflow', 'Analytics review'],
+    projects: ['Trend finder', 'Script generator', 'Subtitle tool', 'Clip merger', 'Shorts exporter', 'Analytics tracker'],
+    lectures: ['Python fundamentals for creators', 'Files, folders, and automation', 'Web scraping and APIs', 'MoviePy video basics', 'FFmpeg export workflow', 'OpenCV overlays and captions', 'YouTube analytics review'],
   },
   {
     title: 'English Fluency Academy',
@@ -52,6 +63,7 @@ export const skillAreas = [
     description: 'Vocabulary, pronunciation, speaking confidence, listening, and interview speaking.',
     tracks: ['Vocabulary', 'Pronunciation', 'Speaking', 'Listening', 'Grammar usage', 'Interview practice'],
     projects: ['Daily 5 words', 'Voice recording', 'Article reading', 'Short speech', 'Mock interview'],
+    lectures: ['Daily vocabulary session', 'Read one science or tech article', 'Record a 3 minute explanation', 'Grammar repair practice', 'Weekly presentation practice'],
   },
   {
     title: 'Writing Skills',
@@ -59,6 +71,7 @@ export const skillAreas = [
     description: 'Paragraphs, essays, blogs, emails, answer writing, reviews, and grammar.',
     tracks: ['Paragraph writing', 'Essay writing', 'Blog writing', 'Email writing', 'Answer writing', 'Film review'],
     projects: ['Daily paragraph', 'Weekly essay', 'Blog draft', 'Formal email', 'Answer improvement log'],
+    lectures: ['Paragraph structure', 'Essay outline practice', 'Formal email format', 'HSC answer writing', 'Weekly edited draft'],
   },
   {
     title: 'Share Market',
@@ -66,6 +79,7 @@ export const skillAreas = [
     description: 'Shares, charts, P/E ratio, EPS, dividends, risk management, and paper trading.',
     tracks: ['Shares', 'Chart reading', 'Candlesticks', 'P/E ratio', 'EPS', 'Dividends', 'Risk management'],
     projects: ['Paper portfolio', 'Dividend calculator', 'Stock watchlist', 'Chart notes journal'],
+    lectures: ['Market basics', 'Candlestick reading', 'P/E and EPS analysis', 'Risk and position sizing', 'Weekly paper trade review'],
   },
   {
     title: 'Future Profession',
@@ -73,6 +87,7 @@ export const skillAreas = [
     description: 'AI Engineer, Quant Analyst, software, data science, research, and internships.',
     tracks: ['AI Engineer', 'Quant Analyst', 'Software Engineer', 'Data Scientist', 'Full Stack Developer'],
     projects: ['Daily research note', 'Career roadmap', 'Company watchlist', 'Internship tracker'],
+    lectures: ['AI engineer roadmap', 'Quant math foundations', 'Python, SQL, Git, and APIs', 'Machine learning basics', 'Portfolio project planning'],
   },
   {
     title: 'JEE Exam Preparation',
@@ -80,6 +95,7 @@ export const skillAreas = [
     description: 'JEE Main preparation with syllabus, weak topics, PYQs, mocks, and revision.',
     tracks: ['Physics', 'Chemistry', 'Mathematics', 'PYQs', 'Mocks', 'Formula revision'],
     projects: ['Chapter tracker', 'Weak topic repair', 'Mock analysis', 'PYQ streak'],
+    lectures: ['Foundation concepts', 'NCERT or HSC standard problems', 'JEE Main PYQs', 'Advanced thinking practice', 'Error notebook review'],
   },
 ]
 

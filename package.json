@@ -1,8 +1,8 @@
 {
-  "name": "study-hub-2",
+  "name": "study-hub",
   "version": "1.0.0",
   "type": "module",
-  "description": "Study Hub 2 - Personal Learning Operating System",
+  "description": "Study Hub - Personal Learning Operating System",
   "private": true,
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

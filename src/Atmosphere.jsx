@@ -1,5 +1,4 @@
 import React from 'react'
-import cloud from './pages/data/public/cloud.png'
 
 export default function Atmosphere() {
   return (
@@ -12,11 +11,6 @@ export default function Atmosphere() {
 
       {/* Candle */}
       <div className="candle-glow" />
-
-      {/* Clouds */}
-      <img src={cloud} className="magic-cloud cloud1" alt="" />
-      <img src={cloud} className="magic-cloud cloud2" alt="" />
-      <img src={cloud} className="magic-cloud cloud3" alt="" />
 
       {/* Stars */}
       {Array.from({ length: 80 }).map((_, i) => (

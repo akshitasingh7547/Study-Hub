@@ -20,7 +20,6 @@ import {
   Target,
   Trash2,
   Trophy,
-  Youtube,
 } from 'lucide-react'
 
 const storageKey = 'studyHub.monthCommandCenter'
@@ -78,7 +77,7 @@ const focusLanes = [
     id: 'youtube',
     title: 'YouTube Channel',
     subtitle: 'Ideas, scripts, filming, editing and publishing',
-    icon: Youtube,
+    icon: PenLine,
     color: 'bg-red-600',
     route: '/notebooklm',
   },

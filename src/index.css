@@ -3,6 +3,16 @@
 @tailwind components;
 @tailwind utilities;
 
+:root{
+  --bg-0: #030303; /* near-black page background */
+  --bg-1: #070707; /* card background */
+  --card-border: rgba(255,255,255,0.03);
+  --slytherin-accent: #4f7058; /* muted deep green */
+  --slytherin-muted: #6f8f77; /* softer green for text */
+  --antique-gold: #b38b2f; /* toned-down gold */
+  --muted-gray: #94a3b8;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -15,23 +25,21 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background:
-    radial-gradient(circle at top,#0b0b0b 0%,transparent 40%),
-    linear-gradient(180deg,#000000,#050505);
+  background: linear-gradient(180deg, var(--bg-0) 0%, #050505 100%);
   color: #e6eef0;
 }
 
 /* Cinzel headings for Tom Riddle vibe */
 h1, h2, h3 { font-family: 'Cinzel', serif; letter-spacing: 0.6px }
 
-/* Initial-letter / dropcap */
+/* Subtle dropcap */
 .dropcap::first-letter {
   font-family: 'Cinzel', serif;
-  font-size: 3.2rem;
+  font-size: 2.6rem;
   float: left;
-  line-height: 0.8;
+  line-height: 0.85;
   margin-right: 0.35rem;
-  color: #d4af37; /* antique gold */
+  color: var(--antique-gold);
 }
 
 /* Smooth transitions */
@@ -50,23 +58,52 @@ h1, h2, h3 { font-family: 'Cinzel', serif; letter-spacing: 0.6px }
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2d2d2d;
+  background: #1f1f1f;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #444;
+  background: #2f2f2f;
 }
 
-/* Slytherin / Tom Riddle accents */
-.bg-slytherin-50 { background-color: #050505; }
-.text-slytherin-900 { color: #b9f7d0; }
+/* Slytherin / Tom Riddle accents - toned down to avoid bright light greens */
+.bg-slytherin-50 { background-color: var(--bg-0); }
+.text-slytherin-900 { color: var(--slytherin-accent); }
+.text-slytherin-700 { color: var(--slytherin-muted); }
+.text-slytherin-600 { color: var(--muted-gray); }
 
 /* Small heading ornament */
 .heading-ornament {
   letter-spacing: 0.18em;
-  color: #d4af37;
+  color: var(--antique-gold);
 }
 
-/* Make cards deep black */
-.card-dark { background: rgba(12,12,12,0.7); border: 1px solid rgba(212,175,55,0.06); }
+/* Make cards deep black with subtle borders */
+.card-dark { background: rgba(8,8,8,0.75); border: 1px solid var(--card-border); }
+
+/* Reduce brightness of highlighted elements */
+.bg-emerald-400, .text-emerald-400 { background-color: var(--slytherin-accent); color: #07120a !important; }
+
+/* Buttons: muted gold for call-to-action */
+.btn-cta { background: var(--antique-gold); color: #060606; }
+.btn-muted { background: rgba(255,255,255,0.03); color: var(--muted-gray); }
+
+/* Remove prominent cloud-like radial; use subtle vignette */
+.app-vignette::before{
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.18) 70%);
+  mix-blend-mode: multiply;
+}
+
+/* Utility tweaks for contrast */
+.bg-gray-900\/60 { background-color: rgba(12,12,12,0.65); }
+.bg-gray-800\/30 { background-color: rgba(22,22,22,0.30); }
+
+/* Slightly darker sidebar when collapsed */
+.sidebar-collapsed { background: #070707 !important; }
+
+/* reduce sheen on gold badges */
+.badge-gold { background: linear-gradient(180deg, rgba(179,139,47,0.95), rgba(140,100,30,0.95)); color:#070707; }

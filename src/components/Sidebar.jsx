@@ -54,7 +54,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
         { icon: BookOpen, label: "Subject Index", path: "/subjects" },
         { icon: Clock, label: "Study Hall", path: "/study-hall" },
         { icon: ClipboardList, label: "Assignment Studio", path: "/assignment-studio" },
-        { icon: Target, label: "JEE Prep", path: "/jee-prep" },
+        { icon: Target, label: "Exam Mission", path: "/jee-prep" },
         { icon: Trophy, label: "Exam Hall", path: "/exam-hall" },
       ],
     },

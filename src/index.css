@@ -8,25 +8,40 @@
   box-sizing: border-box;
 }
 
+:root{
+  --castle-ink: #070807;
+  --castle-night: #0b0d0b;
+  --castle-forest: #12180f;
+  --castle-wood: #1b140b;
+  --castle-gold: #f4c95d;
+  --castle-parchment: #f7ead0;
+  --castle-muted: #c8b88f;
+  --castle-blue: #77d6ff;
+  --castle-violet: #c084fc;
+  --castle-rose: #fb7185;
+}
+
 body {
   font-family: "Inter", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
   background:
-    radial-gradient(circle at top, rgba(18,50,34,0.06), transparent 45%),
-    radial-gradient(circle at bottom right, rgba(10,30,24,0.04), transparent 35%),
-    linear-gradient(180deg,#030404 0%,#07100e 45%,#0b1513 100%);
-
-  color:#eef6f1;
+    radial-gradient(circle at top left, rgba(244,201,93,0.12), transparent 32%),
+    radial-gradient(circle at top right, rgba(119,214,255,0.08), transparent 26%),
+    linear-gradient(180deg, var(--castle-ink) 0%, var(--castle-night) 46%, #12100b 100%);
+  color: var(--castle-parchment);
   overflow-x:hidden;
 }
-/* Smooth transitions */
+
 * {
-  transition: background-color 0.22s ease, color 0.22s ease, transform 0.18s ease;
+  transition: background-color 0.22s ease, color 0.22s ease, transform 0.18s ease, border-color 0.22s ease;
 }
 
-/* Custom scrollbar */
+::selection {
+  background: rgba(244, 201, 93, 0.35);
+  color: #fff;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -37,90 +52,83 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.06);
+  background: rgba(244,201,93,0.18);
   border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255,255,255,0.09);
+  background: rgba(244,201,93,0.32);
 }
 
-/* Atmosphere visuals (kept subtle and behind content) */
 .magic-cloud { display: none !important; }
-.magic-moon, .magic-star, .magic-fog, .magic-sparkle, .candle-glow { z-index: 0 !important; opacity: 0.75 !important; }
+.magic-moon, .magic-star, .magic-fog, .magic-sparkle, .candle-glow { z-index: 0 !important; opacity: 0.65 !important; }
 main, #root, .app-root { position: relative; z-index: 10; }
 
-/* ========== HOUSE COLORS - refined palette ==========
-   Using slightly adjusted official-inspired tones for clarity
-   Slytherin: deep cool green
-   Gryffindor: bold red
-   Ravenclaw: rich blue
-   Hufflepuff: warm gold/yellow
-===================================================== */
-:root{
-  --house-slytherin: #2a623d;   /* deeper Slytherin green */
-  --house-gryffindor: #7f0909;  /* bold Gryffindor red */
-  --house-ravenclaw: #1f3b6f;   /* Ravenclaw deep blue */
-  --house-hufflepuff: #ecb939; /* warm Hufflepuff gold */
-
-  /* supportive contrasts */
-  --house-slytherin-light: #5aa07a;
-  --house-hufflepuff-dark: #b18316;
+.bg-slytherin-50,
+.bg-white {
+  background-color: var(--castle-night) !important;
+  color: var(--castle-parchment) !important;
 }
 
-/* Background helpers */
-.bg-house-slytherin { background-color: var(--house-slytherin) !important; color: #fff !important; }
-.bg-house-gryffindor { background-color: var(--house-gryffindor) !important; color: #fff !important; }
-.bg-house-ravenclaw { background-color: var(--house-ravenclaw) !important; color: #fff !important; }
-.bg-house-hufflepuff { background-color: var(--house-hufflepuff) !important; color: #07120a !important; }
-
-/* Text / border helpers */
-.text-house-slytherin { color: var(--house-slytherin) !important; }
-.text-house-gryffindor { color: var(--house-gryffindor) !important; }
-.text-house-ravenclaw { color: var(--house-ravenclaw) !important; }
-.text-house-hufflepuff { color: var(--house-hufflepuff) !important; }
-
-.border-house-slytherin { border-color: var(--house-slytherin) !important; }
-.border-house-hufflepuff { border-color: var(--house-hufflepuff) !important; }
-
-/* Specific utility for Biology planner item (Slytherin green variant) */
-.bg-slytherin-bio { background-color: var(--house-slytherin) !important; color: #fff !important; }
-.text-slytherin-bio { color: var(--house-slytherin) !important; }
-
-/* Page-specific: Study Hall & Exam Hall should use Hufflepuff gold accents */
-.page-study-hall .bg-slytherin-600,
-.page-study-hall .from-slytherin-600,
-.page-study-hall .text-slytherin-700,
-.page-study-hall .text-slytherin-900,
-.page-study-hall .border-slytherin-600 {
-  background-color: var(--house-hufflepuff) !important;
-  color: #07120a !important;
-  border-color: var(--house-hufflepuff) !important;
-}
-
-.page-exam-hall .bg-slytherin-600,
-.page-exam-hall .from-slytherin-600,
-.page-exam-hall .text-slytherin-700,
-.page-exam-hall .text-slytherin-900,
-.page-exam-hall .border-slytherin-600 {
-  background-color: var(--house-hufflepuff) !important;
-  color: #07120a !important;
-  border-color: var(--house-hufflepuff) !important;
-}
-
-/* Map legacy green classes to Slytherin green to keep consistency */
-.bg-green-600, .text-green-600, .border-green-600 {
-  background-color: var(--house-slytherin) !important;
+.text-slytherin-900,
+.text-slate-900,
+.text-gray-900 {
   color: #fff !important;
-  border-color: var(--house-slytherin) !important;
 }
 
-/* Utility: small pill for house tags */
-.house-pill { padding: 0.25rem 0.6rem; border-radius: 9999px; font-weight: 700; font-size: 0.8rem; display: inline-block; }
-.house-pill.slytherin { background: var(--house-slytherin); color: #fff; }
-.house-pill.hufflepuff { background: var(--house-hufflepuff); color: #07120a; }
-.house-pill.gryffindor { background: var(--house-gryffindor); color: #fff; }
-.house-pill.ravenclaw { background: var(--house-ravenclaw); color: #fff; }
+.text-slytherin-700,
+.text-slytherin-600,
+.text-slate-600,
+.text-gray-600 {
+  color: var(--castle-muted) !important;
+}
 
-/* Keep main content clearly above atmosphere */
+.bg-slytherin-600,
+.bg-slytherin-700,
+.bg-emerald-600,
+.bg-green-600 {
+  background-color: rgba(244, 201, 93, 0.18) !important;
+  color: var(--castle-parchment) !important;
+  border-color: rgba(244, 201, 93, 0.28) !important;
+}
+
+.text-emerald-400,
+.text-green-400,
+.text-yellow-500,
+.text-house-hufflepuff {
+  color: var(--castle-gold) !important;
+}
+
+.bg-yellow-500,
+.bg-amber-300 {
+  background-color: var(--castle-gold) !important;
+  color: #090907 !important;
+}
+
+.border-slytherin-600,
+.border-house-hufflepuff {
+  border-color: rgba(244, 201, 93, 0.35) !important;
+}
+
+.card-dark,
+.bg-gray-900\/60,
+.bg-gray-800\/30,
+.bg-slate-900,
+.bg-slate-800 {
+  background-color: rgba(7, 8, 7, 0.78) !important;
+  border-color: rgba(244, 201, 93, 0.12) !important;
+}
+
+.house-pill { padding: 0.25rem 0.6rem; border-radius: 9999px; font-weight: 700; font-size: 0.8rem; display: inline-block; }
+.house-pill.slytherin,
+.house-pill.hufflepuff,
+.house-pill.gryffindor,
+.house-pill.ravenclaw { background: rgba(244, 201, 93, 0.16); color: var(--castle-parchment); border: 1px solid rgba(244, 201, 93, 0.26); }
+
+.castle-panel {
+  border: 1px solid rgba(244, 201, 93, 0.16);
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.28);
+}
+
 main, #root, .app-root { position: relative; z-index: 10; }

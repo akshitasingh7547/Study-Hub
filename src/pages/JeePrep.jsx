@@ -236,7 +236,8 @@ const JeePrep = () => {
   }
 
   const addMockScore = () => {
-    const nextScore = Math.min(selectedProfile.scoreGoal, Math.max(0, latestMock + 4))
+    const nextStep = Math.max(4, Math.round(selectedProfile.scoreGoal * 0.04))
+    const nextScore = Math.min(selectedProfile.scoreGoal, Math.max(0, latestMock + nextStep))
     patchState({ mockScores: [...state.mockScores.slice(-5), nextScore] })
   }
 
@@ -416,12 +417,15 @@ const JeePrep = () => {
 
             <Panel icon={BarChart3} title="Performance Analytics">
               <div className="flex items-end gap-2 h-28">
-                {state.mockScores.map((score, index) => (
-                  <div key={`${score}-${index}`} className="flex flex-1 flex-col items-center gap-2">
-                    <div className="w-full rounded-t bg-emerald-400" style={{ height: `${Math.max(12, score)}%` }} />
-                    <span className="text-xs text-[#f5e6c8]/65">{score}</span>
-                  </div>
-                ))}
+                {state.mockScores.map((score, index) => {
+                  const height = Math.max(12, Math.min(100, Math.round((score / selectedProfile.scoreGoal) * 100)))
+                  return (
+                    <div key={`${score}-${index}`} className="flex flex-1 flex-col items-center gap-2">
+                      <div className="w-full rounded-t bg-emerald-400" style={{ height: `${height}%` }} />
+                      <span className="text-xs text-[#f5e6c8]/65">{score}</span>
+                    </div>
+                  )
+                })}
               </div>
               <button onClick={addMockScore} className="mt-4 rounded-lg bg-[#d4af37] px-4 py-2 text-sm font-bold text-[#081310]">Add mock result</button>
             </Panel>

@@ -12,11 +12,12 @@ import {
   Trophy,
   BarChart3,
   Target,
-  Moon,
   ChevronLeft,
   ClipboardList,
   ChevronRight,
   Search,
+  FlaskConical,
+  WandSparkles,
 } from "lucide-react";
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
@@ -24,7 +25,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 
   useEffect(() => {
     const updateProgress = () => {
-      const saved = localStorage.getItem("studyHub.studyHall");
+      const saved = localStorage.getItem("studyHub.studyHallV2") || localStorage.getItem("studyHub.studyHall");
       if (!saved) return;
 
       const parsed = JSON.parse(saved);
@@ -40,95 +41,92 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 
   const sections = [
     {
-      title: "MAIN",
+      title: "CASTLE",
       items: [
-        { icon: LayoutDashboard, label: "Command Center", path: "/" },
-        { icon: Calendar, label: "Calendar", path: "/calendar" },
-        { icon: Calendar, label: "Weekly Planner", path: "/planner" },
+        { icon: LayoutDashboard, label: "Command Chamber", path: "/" },
+        { icon: Calendar, label: "Timekeeper Clock", path: "/calendar" },
+        { icon: Calendar, label: "Weekly Spellbook", path: "/planner" },
       ],
     },
 
     {
-      title: "STUDY",
+      title: "IIT QUEST",
       items: [
-        { icon: BookOpen, label: "Subject Index", path: "/subjects" },
-        { icon: Clock, label: "Study Hall", path: "/study-hall" },
+        { icon: Target, label: "IIT Bombay Mission", path: "/jee-prep" },
+        { icon: BookOpen, label: "Subject Grimoire", path: "/subjects" },
+        { icon: Clock, label: "Silent Library", path: "/study-hall" },
+        { icon: Trophy, label: "Trial Chamber", path: "/exam-hall" },
         { icon: ClipboardList, label: "Assignment Studio", path: "/assignment-studio" },
-        { icon: Target, label: "Exam Mission", path: "/jee-prep" },
-        { icon: Trophy, label: "Exam Hall", path: "/exam-hall" },
       ],
     },
 
     {
-      title: "GROWTH",
+      title: "FUTURE PATHS",
       items: [
+        { icon: FlaskConical, label: "AI Workshop", path: "/coding" },
+        { icon: BarChart3, label: "Quant Ledger", path: "/stock-market" },
+        { icon: Briefcase, label: "Hall of Paths", path: "/career" },
         { icon: Award, label: "Skills", path: "/skills" },
-        { icon: BookOpen, label: "NotebookLM", path: "/notebooklm" },
-        { icon: Library, label: "Library", path: "/library" },
-        { icon: GraduationCap, label: "Free Courses", path: "/free-courses" },
-        { icon: Briefcase, label: "Career Vault", path: "/career" },
       ],
     },
 
     {
-      title: "PROGRESS",
+      title: "ARCHIVES",
       items: [
-        { icon: Trophy, label: "Achievements", path: "/achievements" },
-        { icon: BarChart3, label: "Analytics", path: "/analytics" },
-        { icon: Moon, label: "Zodiac Vault", path: "/zodiac" },
+        { icon: Library, label: "Grand Library", path: "/library" },
+        { icon: GraduationCap, label: "Academy Archives", path: "/free-courses" },
+        { icon: BookOpen, label: "Notebook Oracle", path: "/notebooklm" },
+        { icon: Trophy, label: "Hall of Legends", path: "/achievements" },
+        { icon: BarChart3, label: "Progress Observatory", path: "/analytics" },
       ],
     },
   ];
 
   return (
     <aside
-      className={`fixed left-0 top-0 h-screen bg-slate-900 text-white transition-all duration-300 shadow-xl z-50 ${
+      className={`fixed left-0 top-0 z-50 h-screen border-r border-amber-300/15 bg-[#080908]/95 text-[#f7ead0] shadow-2xl shadow-black/50 transition-all duration-300 ${
         isOpen ? "w-72" : "w-20"
       }`}
     >
-      {/* Header */}
-      <div className="flex items-center justify-between border-b border-slate-700 p-5">
+      <div className="flex items-center justify-between border-b border-amber-300/15 p-5">
         {isOpen && (
           <div>
-            <h1 className="text-xl font-bold text-emerald-400">
-              Study Hub
-            </h1>
-            <p className="text-xs text-slate-400">
-              Monthly Command Center
+            <div className="flex items-center gap-2 text-amber-300">
+              <WandSparkles size={18} />
+              <h1 className="text-xl font-bold tracking-wide">Study Castle</h1>
+            </div>
+            <p className="mt-1 text-xs text-[#c8b88f]">
+              IIT Bombay CSE quest
             </p>
           </div>
         )}
 
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="p-2 rounded-lg hover:bg-slate-700 transition"
+          className="rounded-lg border border-amber-300/10 p-2 text-amber-200 hover:bg-amber-300/10"
         >
           {isOpen ? <ChevronLeft /> : <ChevronRight />}
         </button>
       </div>
 
-      {/* Search */}
       {isOpen && (
         <div className="p-4">
-          <div className="flex items-center bg-slate-800 rounded-lg px-3 py-2">
-            <Search size={16} className="text-slate-400" />
+          <div className="flex items-center rounded-lg border border-amber-300/10 bg-black/25 px-3 py-2">
+            <Search size={16} className="text-amber-300" />
             <input
               type="text"
-              placeholder="Search..."
-              className="ml-2 bg-transparent outline-none text-sm flex-1 placeholder:text-slate-500"
+              placeholder="Search the archives..."
+              className="ml-2 flex-1 bg-transparent text-sm text-[#f7ead0] outline-none placeholder:text-[#9a8b69]"
             />
           </div>
         </div>
       )}
 
-      {/* Navigation */}
-      <div className="overflow-y-auto h-[calc(100vh-240px)] px-3">
-
+      <div className="h-[calc(100vh-240px)] overflow-y-auto px-3">
         {sections.map((section) => (
           <div key={section.title} className="mb-6">
-
             {isOpen && (
-              <h3 className="text-xs uppercase tracking-wider text-slate-500 mb-2 px-3">
+              <h3 className="mb-2 px-3 text-xs uppercase tracking-wider text-[#8e7b55]">
                 {section.title}
               </h3>
             )}
@@ -138,10 +136,10 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                 key={item.label}
                 to={item.path}
                 className={({ isActive }) =>
-                  `flex items-center gap-4 px-4 py-3 rounded-xl mb-2 transition-all ${
+                  `mb-2 flex items-center gap-4 rounded-lg px-4 py-3 transition-all ${
                     isActive
-                      ? "bg-emerald-600 text-white"
-                      : "hover:bg-slate-800 text-slate-300"
+                      ? "border border-amber-300/30 bg-amber-300/15 text-amber-100 shadow-lg shadow-amber-950/30"
+                      : "text-[#d5c6a4] hover:bg-white/5 hover:text-amber-100"
                   }`
                 }
               >
@@ -156,39 +154,35 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
             ))}
           </div>
         ))}
-
       </div>
 
-      {/* Footer */}
-      <div className="absolute bottom-0 left-0 w-full border-t border-slate-700 p-4">
-
+      <div className="absolute bottom-0 left-0 w-full border-t border-amber-300/15 p-4">
         {isOpen && (
           <>
             <div className="mb-4">
-              <p className="text-xs text-slate-400 mb-1">
-                Today's Progress
+              <p className="mb-1 text-xs text-[#c8b88f]">
+                Today's Quest Progress
               </p>
 
-              <div className="w-full h-2 bg-slate-700 rounded-full">
+              <div className="h-2 w-full rounded-full bg-black/40">
                 <div
-                  className="h-2 rounded-full bg-emerald-400"
+                  className="h-2 rounded-full bg-amber-300"
                   style={{ width: `${studyProgress}%` }}
                 ></div>
               </div>
 
-              <p className="text-xs mt-2 text-slate-400">
-                {studyProgress}% Study Hall progress
+              <p className="mt-2 text-xs text-[#9a8b69]">
+                {studyProgress}% Silent Library progress
               </p>
             </div>
 
-            <div className="text-center text-xs text-slate-500">
-              <p className="font-semibold">Study Hub</p>
-              <p>Built for self-study</p>
-              <p>Made by Akshita Singh</p>
+            <div className="text-center text-xs text-[#8e7b55]">
+              <p className="font-semibold text-[#c8b88f]">Study Castle</p>
+              <p>JEE Main + Advanced</p>
+              <p>IIT Bombay CSE path</p>
             </div>
           </>
         )}
-
       </div>
     </aside>
   );

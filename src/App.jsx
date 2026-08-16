@@ -21,6 +21,7 @@ import Achievements from './pages/Achievements'
 import Auth from './pages/Auth'
 import UserMenu from './components/UserMenu'
 import Atmosphere from './Atmosphere'
+import FloatingGuide from './components/FloatingGuide'
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -47,6 +48,7 @@ function App() {
 return (
   <>
     <Atmosphere />
+    <FloatingGuide />
 
     <div className="flex min-h-screen bg-[#070807]">
       <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
@@ -74,9 +76,10 @@ return (
           <Route path="/career" element={<CareerVault />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/notebooklm" element={<NotebookLM />} />
-          <Route path="/coding" element={<SkillPage areaTitle="AI Engineer Workshop" />} />
-          <Route path="/english-fluency" element={<SkillPage areaTitle="Communication Chamber" />} />
-          <Route path="/writing-skills" element={<SkillPage areaTitle="Writers' Guild" />} />
+          <Route path="/coding" element={<SkillPage areaTitle="Coding Hub" />} />
+          <Route path="/english-fluency" element={<SkillPage areaTitle="English Fluency Academy" />} />
+          <Route path="/writing-skills" element={<SkillPage areaTitle="Writing Skills" />} />
+          <Route path="/youtube" element={<SkillPage areaTitle="YouTube Automation Studio" />} />
           <Route path="/skills" element={<SkillsTracker />} />
           <Route path="/stock-market" element={<StockMarket />} />
           <Route path="/achievements" element={<Achievements />} />

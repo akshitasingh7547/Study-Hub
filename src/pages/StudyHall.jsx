@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { Play, Pause, RotateCcw, CheckCircle2, Trash2, Timer, BookOpen, Sparkles } from 'lucide-react'
 import BreakSearch from '../components/BreakSearch'
+import EnergyGuard from '../components/EnergyGuard'
 
 const STORAGE_KEY = 'studyHub.studyHallV2'
 const CHAPTERS_KEY = 'studyHub.chapterPlans'
@@ -19,9 +20,10 @@ const defaultChapters = [
 const StudyHall = () => {
   const [mode, setMode] = useState('pomodoro')
   const STUDY_MODES = {
-    pomodoro: { name: '🍅 Pomodoro', focus: 25 * 60, break: 5 * 60 },
-    deep: { name: '🧠 Deep Focus', focus: 50 * 60, break: 10 * 60 },
-    quick: { name: '⚡ Quick Revision', focus: 15 * 60, break: 3 * 60 },
+    pomodoro: { name: 'Pomodoro', focus: 25 * 60, break: 5 * 60 },
+    deep: { name: 'Deep Focus', focus: 50 * 60, break: 10 * 60 },
+    quick: { name: 'Quick Revision', focus: 15 * 60, break: 3 * 60 },
+    protected: { name: 'Protected Eye Block', focus: 12 * 60, break: 8 * 60 },
   }
 
   const [isBreak, setIsBreak] = useState(false)
@@ -122,7 +124,11 @@ const StudyHall = () => {
     <div className="p-8 min-h-screen bg-black text-gray-100 page-study-hall">
       <div className="mb-6">
         <h1 style={{ fontFamily: 'Cinzel, serif' }} className="text-3xl font-bold">Study Hall</h1>
-        <p className="text-gray-400">Timer, chapter plans, and focused progress. Chapter states: Start Next, Learning, Familiar, Complete.</p>
+        <p className="text-gray-400">Timer, chapter plans, and fatigue-aware progress. Chapter states: Start Next, Learning, Familiar, Complete.</p>
+      </div>
+
+      <div className="mb-6">
+        <EnergyGuard />
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-8">
@@ -130,7 +136,7 @@ const StudyHall = () => {
           <h2 className="font-semibold mb-3">Focus Timer</h2>
           <div className="bg-gray-800/40 p-4 rounded text-center mb-4">
             <div className="text-5xl font-mono font-bold">{format(minutes)}:{format(seconds)}</div>
-            <div className="text-sm text-gray-400 mt-2">{isBreak ? 'Break' : 'Focus'} • {STUDY_MODES[mode].name}</div>
+            <div className="text-sm text-gray-400 mt-2">{isBreak ? 'Break' : 'Focus'} - {STUDY_MODES[mode].name}</div>
           </div>
 
           <div className="grid grid-cols-3 gap-2 mb-4">
@@ -149,7 +155,7 @@ const StudyHall = () => {
           {isBreak && (
             <div className="mt-4 bg-gray-800/30 p-3 rounded">
               <p className="font-semibold">Break Activity</p>
-              <p className="text-xs text-gray-400">Use break to refresh — quick research suggestions:</p>
+              <p className="text-xs text-gray-400">Use break to refresh with low-screen reset ideas:</p>
               <BreakSearch />
             </div>
           )}

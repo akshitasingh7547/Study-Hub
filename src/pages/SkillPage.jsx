@@ -41,11 +41,13 @@ const [newProject, setNewProject] = useState("")
     window.dispatchEvent(new Event('studyHubProgressUpdated'))
   }, [progress, notes, areaTitle, projects, hasLoaded])
 
-  const doneCount = useMemo(() => {
-    return area.tracks.filter((track) => progress[`${areaTitle}:${track}`]).length
-  }, [area.tracks, areaTitle, progress])
+  const safeArea = area || skillAreas[0]
 
-  const percent = area.tracks.length ? Math.round((doneCount / area.tracks.length) * 100) : 0
+  const doneCount = useMemo(() => {
+    return safeArea.tracks.filter((track) => progress[`${areaTitle}:${track}`]).length
+  }, [safeArea.tracks, areaTitle, progress])
+
+  const percent = safeArea.tracks.length ? Math.round((doneCount / safeArea.tracks.length) * 100) : 0
 
   const toggleTrack = (track) => {
     const key = `${areaTitle}:${track}`
@@ -89,15 +91,15 @@ const deleteProject = (id)=>{
   return (
     <div className="p-8 animate-fadeIn">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-slytherin-900 mb-2">{area.title}</h1>
-        <p className="text-slytherin-600">{area.description}</p>
+        <h1 className="text-4xl font-bold text-slytherin-900 mb-2">{safeArea.title}</h1>
+        <p className="text-slytherin-600">{safeArea.description}</p>
       </div>
 
       <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-4">
           <div>
             <h2 className="text-2xl font-bold text-slytherin-900">Progress</h2>
-            <p className="text-slytherin-600">{doneCount} of {area.tracks.length} tracks completed.</p>
+            <p className="text-slytherin-600">{doneCount} of {safeArea.tracks.length} tracks completed.</p>
           </div>
           <p className="text-4xl font-bold text-slytherin-700">{percent}%</p>
         </div>
@@ -110,7 +112,7 @@ const deleteProject = (id)=>{
         <div className="xl:col-span-2 bg-white rounded-xl shadow-lg p-8">
           <h2 className="text-2xl font-bold text-slytherin-900 mb-6">Tracks</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {area.tracks.map((track) => {
+            {safeArea.tracks.map((track) => {
               const checked = Boolean(progress[`${areaTitle}:${track}`])
               return (
                 <button
@@ -243,7 +245,7 @@ className="text-red-500"
             value={newNote}
             onChange={(event) => setNewNote(event.target.value)}
             onKeyDown={(event) => event.key === 'Enter' && addNote()}
-            placeholder={`Add a ${area.title.toLowerCase()} note...`}
+            placeholder={`Add a ${safeArea.title.toLowerCase()} note...`}
             className="flex-1 px-4 py-2 border border-slytherin-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slytherin-600"
           />
           <button onClick={addNote} className="flex items-center gap-2 px-5 py-2 bg-slytherin-600 text-white rounded-lg font-bold hover:bg-slytherin-700">

@@ -18,6 +18,9 @@ import {
   Search,
   FlaskConical,
   WandSparkles,
+  PenLine,
+  Video,
+  Keyboard,
 } from "lucide-react";
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
@@ -64,6 +67,9 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       title: "FUTURE PATHS",
       items: [
         { icon: FlaskConical, label: "AI Workshop", path: "/coding" },
+        { icon: Keyboard, label: "Writing Studio", path: "/writing-skills" },
+        { icon: PenLine, label: "Vocabulary Studio", path: "/english-fluency" },
+        { icon: Video, label: "YouTube Workflow", path: "/youtube" },
         { icon: BarChart3, label: "Quant Ledger", path: "/stock-market" },
         { icon: Briefcase, label: "Hall of Paths", path: "/career" },
         { icon: Award, label: "Skills", path: "/skills" },
